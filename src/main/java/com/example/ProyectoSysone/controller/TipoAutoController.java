@@ -15,9 +15,9 @@ public class TipoAutoController {
 	@Autowired
 	private TipoAutoService tipoAutoService;
 	
-	@GetMapping("/tiposAuto")
-	List<TipoAuto> filAllTipoAuto(){
-		return tipoAutoService.findAll();
-	}
+//	@GetMapping("/tiposAuto")
+//	List<TipoAuto> filAllTipoAuto(){
+//		return tipoAutoService.findAll();
+//	}
 	
 }

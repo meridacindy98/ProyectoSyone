@@ -1,5 +1,7 @@
 package com.example.ProyectoSysone.dao;
 
+import java.math.BigDecimal;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,6 +13,7 @@ import com.example.ProyectoSysone.entity.TipoAuto;
 public interface TipoAutoDao extends JpaRepository<TipoAuto, Integer> {
 	
 	@Query("SELECT precio FROM TipoAuto WHERE tipoAutoId = :tipoAutoId")
-	int getPriceById(@Param("tipoAutoId") int tipoAutoId);
+	BigDecimal findPrecioByTipoAutoId(@Param("tipoAutoId") int tipoAutoId);
+	
 	
 }

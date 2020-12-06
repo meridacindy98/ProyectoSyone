@@ -1,7 +1,9 @@
 package com.example.ProyectoSysone.service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,40 +13,83 @@ import com.example.ProyectoSysone.entity.Automovil;
 import com.example.ProyectoSysone.entity.TipoAuto;
 
 @Service
-public class AutomovilService implements Services<Automovil, Integer> {
+public class AutomovilService {
 
 	@Autowired
 	private AutomovilDao automovilDao;
 	
-	@Override
-	public void save(Automovil automovil) {
-		automovilDao.save(automovil);	
-	}
-
-	@Override
-	public void delete(Automovil automovil) {
-		// TODO Auto-generated method stub
+	@Autowired 
+	private TipoAutoService tipoAutoService;
+	
+	@Autowired
+	private OpcionalService opcionalService;
+	
+	@Autowired
+	private AutomovilOpcionalService automovilOpcionalService;
 		
-	}
-
-	@Override
-	public void update(Automovil automovil) {
-		// TODO Auto-generated method stub
+	public Automovil save( int tipoAutoId, List<Integer> opcionalList) {
 		
-	}
+		TipoAuto tipoAuto;
+		
+		try {
+			tipoAuto = tipoAutoService.findById(tipoAutoId);			
+		} catch (NoSuchElementException e) {
+			throw new IllegalArgumentException("El tipo auto no existia.",e);
+		}		
+		
+		Automovil automovil = new Automovil( tipoAuto, calculateTotalPrice(tipoAutoId, opcionalList));		
+		
+		return automovilDao.save(automovil);
+	}	
+	
+	private BigDecimal calculateTotalPrice(int tipoAutoId, List<Integer> opcionalList) {
 
-	@Override
-	public Optional<TipoAuto> findById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		Boolean duplicate = false;
+		BigDecimal priceTipoAuto = BigDecimal.ZERO;
+		BigDecimal priceOpcional = BigDecimal.ZERO;
+		BigDecimal priceTotal = BigDecimal.ZERO;
+		String message = "";
 
-	@Override
-	public List<Automovil> findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		// Obtengo el precio del tipo de auto
+		priceTipoAuto = tipoAutoService.findPrecioByTipoAutoId(tipoAutoId);
 
+		if (opcionalList != null && opcionalList.size() > 1) {
+
+			System.out.println("Se ingreso mas de un opcional");
+
+			// Valido que no se hayan pasado opcionalId repetidos
+			for (int i = 0; i < opcionalList.size(); i++) {
+
+				for (int j = i + 1; j < opcionalList.size(); j++) {
+
+					if ((opcionalList.get(i)).equals(opcionalList.get(j))) {
+						duplicate = true;
+						return null;
+					}
+
+				}
+
+			}
+
+			if (duplicate = false) {
+
+				System.out.println("No hay opcionales duplicados");
+				for (Integer opcionalId : opcionalList) {
+					priceOpcional = opcionalService.findPrecioByOpcionalId(opcionalId);
+					priceOpcional.add(priceOpcional);
+				}
+			}
+
+		} else if ( opcionalList != null && opcionalList.size() == 1) {
+			System.out.println("Se ingreso solo un opcional");
+			priceOpcional = opcionalService.findPrecioByOpcionalId(opcionalList.get(0));
+		}
+
+		priceTotal = priceTipoAuto.add(priceOpcional);
+
+		return priceTotal;
+
+	}
 
 
 }

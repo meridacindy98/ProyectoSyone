@@ -1,5 +1,7 @@
 package com.example.ProyectoSysone.entity;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,17 +14,21 @@ import javax.persistence.Table;
 @Entity
 @Table
 public class Automovil {
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int automovilId;
-	
-	@ManyToOne( optional = false )
-	@JoinColumn(name="tipoAutoId")
-	private TipoAuto tipoAuto;
-	
-	@Column(nullable = false)
-	private int precioFinal;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int automovilId;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "tipoAutoId")
+    private TipoAuto tipoAuto;
+
+    private BigDecimal precioFinal;
+
+    public Automovil( TipoAuto tipoAuto, BigDecimal precioFinal) {
+        this.tipoAuto = tipoAuto;
+        this.precioFinal = precioFinal;
+    }
 
 	public int getAutomovilId() {
 		return automovilId;
@@ -40,12 +46,13 @@ public class Automovil {
 		this.tipoAuto = tipoAuto;
 	}
 
-	public int getPrecioFinal() {
+	public BigDecimal getPrecioFinal() {
 		return precioFinal;
 	}
 
-	public void setPrecioFinal(int precioFinal) {
+	public void setPrecioFinal(BigDecimal precioFinal) {
 		this.precioFinal = precioFinal;
-	}
-	
+	}            
+  
+
 }
