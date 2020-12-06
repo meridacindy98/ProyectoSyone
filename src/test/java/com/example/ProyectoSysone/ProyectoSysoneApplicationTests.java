@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -52,7 +53,7 @@ public class ProyectoSysoneApplicationTests {
 	public void saveAutomovilOk() {
 
 		List<Integer> opcionalList = Arrays.asList(1, 2, 3);
-
+		System.out.println(automovilDao.count());
 		Automovil automovil = automovilService.save(1, opcionalList);
 //		Assert.isTrue(automovilDao.existsById(automovil.getAutomovilId()), "El automovil no se guardo");
 		assertThat(automovilDao.existsById(automovil.getAutomovilId())).isTrue();
@@ -121,7 +122,7 @@ public class ProyectoSysoneApplicationTests {
 	}
 	
 	@Test
-	public void saveAutomovilOpcionalOk() {				
+	public void saveAutomovilWithOpcionalOk() {				
 		List<Integer> opcionalList = Arrays.asList(1);
 		
 		Automovil automovil = automovilService.save(1, opcionalList);
@@ -130,6 +131,15 @@ public class ProyectoSysoneApplicationTests {
 				.hasSize(1)
 				.extracting("opcional",Opcional.class)
 				.allMatch(opcional -> opcional.getNombre().equals("Techo corredizo"));
+		
+	}
+	
+	public void saveAutomovilWithOpcionalError() {				
+		List<Integer> opcionalList = Arrays.asList(-1);
+
+		Automovil automovil = automovilService.save(1, opcionalList);
+
+		assertThat( automovilOpcionalDao.findByAutomovilAutomovilId( automovil.getAutomovilId() ) );		
 		
 	}
 	
