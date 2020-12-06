@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.ProyectoSysone.dao.OpcionalDao;
+import com.example.ProyectoSysone.entity.Opcional;
 
 @Service
 public class OpcionalService  {
@@ -15,6 +16,10 @@ public class OpcionalService  {
 
 	public BigDecimal findPrecioByOpcionalId(int opcionalId){
 		return opcionalDao.findPrecioByOpcionalId(opcionalId);
+	}
+	
+	public Opcional findOpcionalById(int opcionalId){
+		return opcionalDao.findById(opcionalId).get();
 	}
 	
 }

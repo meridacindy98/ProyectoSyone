@@ -11,8 +11,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
-@Table
 public class Automovil {
 
     @Id
@@ -29,6 +32,8 @@ public class Automovil {
         this.tipoAuto = tipoAuto;
         this.precioFinal = precioFinal;
     }
+    
+    public Automovil( ) {}
 
 	public int getAutomovilId() {
 		return automovilId;
@@ -52,7 +57,8 @@ public class Automovil {
 
 	public void setPrecioFinal(BigDecimal precioFinal) {
 		this.precioFinal = precioFinal;
-	}            
-  
+	}
+    
+    
 
 }
