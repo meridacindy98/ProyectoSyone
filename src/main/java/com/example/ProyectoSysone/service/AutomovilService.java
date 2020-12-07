@@ -33,7 +33,7 @@ public class AutomovilService {
 
 	public Automovil save(int tipoAutoId, List<Integer> opcionalList) {
 
-		TipoAuto tipoAuto;		
+		TipoAuto tipoAuto;
 
 		try {
 			tipoAuto = tipoAutoService.findById(tipoAutoId);
@@ -42,21 +42,21 @@ public class AutomovilService {
 		}
 
 		Assert.isTrue(tipoAutoService.validateStockTipoAuto(tipoAutoId), "El tipo de auto ingresado no tiene stock");
-		
+
 		if (opcionalList == null) {
 			opcionalList = new ArrayList<>();
 		}
-		
+
 		opcionalList.stream().forEach(opcionalId -> {
 			if (!opcionalService.existById(opcionalId.intValue())) {
 				throw new IllegalArgumentException("Uno de los opcionales ingresados no existe.");
 			}
 		});
-		
+
 		opcionalList.stream().forEach(opcionalId -> {
-			Assert.isTrue(opcionalService.validateStockOpcional(opcionalId), "El opcional ingresado no tiene stock");			
+			Assert.isTrue(opcionalService.validateStockOpcional(opcionalId), "El opcional ingresado no tiene stock");
 		});
-		
+
 		Automovil automovil = new Automovil(tipoAuto, calculateTotalPrice(tipoAutoId, opcionalList));
 		automovil = automovilDao.save(automovil);
 		tipoAutoService.updateCantidadTipoAuto(tipoAuto);
@@ -70,8 +70,17 @@ public class AutomovilService {
 
 		return automovil;
 	}
-	
-	public void deleteAutomovil( Automovil automovil ) {
+
+	public void deleteAutomovil(int automovilId) {
+		
+		Automovil automovil;
+		
+		try {
+			automovil =  automovilDao.findById( automovilId ).get();
+		} catch (NoSuchElementException e) {
+			throw new IllegalArgumentException("El automovil no existe.", e);
+		}
+		
 		automovilDao.delete(automovil);
 	}
 

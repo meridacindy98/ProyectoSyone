@@ -168,7 +168,12 @@ public class ProyectoSysoneApplicationTests {
 		assertThat( cantidadInicialOpcional ).isGreaterThan( cantidadFinalOpcional );
 	}
 	
-	//Borrar un automovil
+	//Borrar un automovil sin opcionales
+	@Test
+	public void deleteAutomovilOk(){		
+		TipoAuto tipoAuto = tipoAutoDao.findById(2).get();
+		Automovil automovil = new Automovil(tipoAuto, tipoAuto.getPrecio());
+	}
 	
 	//Borrar un opcional de un automovil (OpcionalAutomovil)
 	
