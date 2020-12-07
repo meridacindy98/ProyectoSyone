@@ -78,10 +78,13 @@ public class AutomovilService {
 		try {
 			automovil =  automovilDao.findById( automovilId ).get();
 		} catch (NoSuchElementException e) {
-			throw new IllegalArgumentException("El automovil no existe.", e);
+			throw new IllegalArgumentException("El automovil ingresado no existe", e);
 		}
 		
-		//verifico que el automovil tenga opcionales
+		List<AutomovilOpcional> automovilOpcionalList = automovilOpcionalService.findByAutomovilAutomovilId(automovilId);
+		for ( AutomovilOpcional automovilOpcional: automovilOpcionalList ) {
+			automovilOpcionalService.deleteAutomovilOpcional(automovilOpcional);
+		}
 		
 		automovilDao.delete(automovil);
 	}

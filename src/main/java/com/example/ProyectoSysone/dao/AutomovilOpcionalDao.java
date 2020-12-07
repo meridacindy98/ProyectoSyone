@@ -3,6 +3,8 @@ package com.example.ProyectoSysone.dao;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.ProyectoSysone.entity.AutomovilOpcional;
@@ -11,5 +13,11 @@ import com.example.ProyectoSysone.entity.AutomovilOpcional;
 public interface AutomovilOpcionalDao extends JpaRepository<AutomovilOpcional, Integer> {
 	
 	List< AutomovilOpcional > findByAutomovilAutomovilId( int automovilId );
+	
+	@Query(value = "SELECT * FROM AutomovilOpcional WHERE automovilId = :automovilId AND opcionalId = :opcionalId", nativeQuery = true)
+	AutomovilOpcional findByAutomovilAutomovilIdAndOpcionalId( int automovilId, int opcionalId );
+	
+	@Query("SELECT CASE WHEN COUNT(*) > 0 THEN true ELSE false END FROM AutomovilOpcional WHERE automovilId = :automovilId AND opcionalId = :opcionalId")
+	Boolean validateAutomovilAutomovilId(@Param("automovilId") int automovilId, @Param("opcionalId") int opcionalId);
 	
 }

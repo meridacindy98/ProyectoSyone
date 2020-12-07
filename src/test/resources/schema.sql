@@ -50,9 +50,13 @@ insert into Opcional ( nombre, codigo, precio, cantidad ) values ('Sistemas de f
 insert into Opcional ( nombre, codigo, precio, cantidad ) values ('Airbag', 'AB',7000.00, 14);
 insert into Opcional ( nombre, codigo, precio, cantidad ) values ('Llantas de aleación', 'LL',12000.00, 0);
 
-insert into Automovil ( automovilId,tipoAutoId, precioFinal ) values ( 1, 242000.00);
-insert into Automovil ( automovilId,tipoAutoId, precioFinal ) values ( 1, 242000.00);
+--AutomovilId 1
+insert into Automovil ( tipoAutoId, precioFinal ) values ( 1, 242000.00);
 
+--AutomovilId 2
+insert into Automovil ( tipoAutoId, precioFinal ) values ( 1, 80.00);
+
+--AutomovilOpcionalId 1
 insert into AutomovilOpcional ( automovilId, opcionalId ) values (2, 1);
 
 

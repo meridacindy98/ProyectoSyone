@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import com.example.ProyectoSysone.dao.AutomovilDao;
@@ -19,6 +20,7 @@ import com.example.ProyectoSysone.dao.AutomovilOpcionalDao;
 import com.example.ProyectoSysone.dao.OpcionalDao;
 import com.example.ProyectoSysone.dao.TipoAutoDao;
 import com.example.ProyectoSysone.entity.Automovil;
+import com.example.ProyectoSysone.entity.AutomovilOpcional;
 import com.example.ProyectoSysone.entity.Opcional;
 import com.example.ProyectoSysone.entity.TipoAuto;
 import com.example.ProyectoSysone.service.AutomovilOpcionalService;
@@ -27,6 +29,7 @@ import com.example.ProyectoSysone.service.AutomovilService;
 @SpringBootTest
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { ProyectoSysoneApplication.class })
+@Transactional
 public class ProyectoSysoneApplicationTests {
 
 	@Autowired
@@ -47,19 +50,21 @@ public class ProyectoSysoneApplicationTests {
 	@Autowired
 	private OpcionalDao opcionalDao;
 
+	//Guardar un automovil OK
 	@Test
 	public void saveAutomovilOk() {
 
 		List<Integer> opcionalList = Arrays.asList(1, 2, 3);
 
 		Automovil automovil = automovilService.save(1, opcionalList);
-		//Assert.isTrue(automovilDao.existsById(automovil.getAutomovilId()), "El automovil no se guardo");
+		// Assert.isTrue(automovilDao.existsById(automovil.getAutomovilId()), "El automovil no se guardo"); prueba
 		assertThat(automovilDao.existsById(automovil.getAutomovilId())).isTrue();
 
 	}
 
+	//Intenta guardar un auntomovil con un tipo de auto que no existe
 	@Test
-	public void saveAutomovilError() {
+	public void saveAutomovilTipoAutoNoExist() {
 		List<Integer> opcionalList = Arrays.asList(1, 2, 3);
 
 		assertThatThrownBy(() -> automovilService.save(-1, opcionalList)).isInstanceOf(IllegalArgumentException.class)
@@ -67,6 +72,7 @@ public class ProyectoSysoneApplicationTests {
 
 	}
 
+	//Guarda un automovil SIN opcionales validando que el calculo del precio final sea correcto
 	@Test
 	public void saveAutomovilTotalPriceWithoutOpcionalOk() {
 
@@ -78,6 +84,7 @@ public class ProyectoSysoneApplicationTests {
 
 	}
 
+	//Guarda un automovil CON mas de un opcional validando que el calculo del precio final sea correcto
 	@Test
 	public void saveAutomovilTotalPriceWithOpcionalesOk() {
 
@@ -89,6 +96,7 @@ public class ProyectoSysoneApplicationTests {
 
 	}
 
+	//Guarda un automovil CON UN opcional validando que el calculo del precio final sea correcto
 	@Test
 	public void saveAutomovilTotalPriceWithOneOpcionalOk() {
 
@@ -100,6 +108,7 @@ public class ProyectoSysoneApplicationTests {
 
 	}
 
+	//Intenta guardar un automovil con opcionales repetidos
 	@Test
 	public void saveAutomovilTotalPriceWithOpcionalesRepetidos() {
 
@@ -110,6 +119,7 @@ public class ProyectoSysoneApplicationTests {
 
 	}
 
+	//Guarda un automovil SIN opcionales
 	@Test
 	public void saveAutomovilTotalPriceWithOpcionalesNull() {
 
@@ -119,6 +129,7 @@ public class ProyectoSysoneApplicationTests {
 
 	}
 
+	//Guarda un automovil con UN opcional y valida que haya persistido bien en AutomovilOpcional
 	@Test
 	public void saveAutomovilWithOpcionalOk() {
 		List<Integer> opcionalList = Arrays.asList(1);
@@ -131,9 +142,9 @@ public class ProyectoSysoneApplicationTests {
 
 	}
 
-	// Ingresando un opcional que no existe
+	// Intenta guarda un automovil ingresando un opcional que no existe
 	@Test
-	public void saveAutomovilWithOpcionalError() {
+	public void saveAutomovilWithOpcionalNoexist() {
 		List<Integer> opcionalList = Arrays.asList(-1);
 
 		assertThatThrownBy(() -> automovilService.save(1, opcionalList)).isInstanceOf(IllegalArgumentException.class)
@@ -143,7 +154,7 @@ public class ProyectoSysoneApplicationTests {
 
 	// Ingresando un automovil con opcionales que descuenta stock
 	@Test
-	public void saveAutomovilWithOpcionalDescontadoStockOK() {
+	public void saveAutomovilWithOpcionalDescontadoStockOk() {
 		List<Integer> opcionalList = Arrays.asList(1);
 
 		TipoAuto tipoAuto = tipoAutoDao.findById(1).get();
@@ -164,35 +175,76 @@ public class ProyectoSysoneApplicationTests {
 		assertThat(cantidadInicialOpcional).isGreaterThan(cantidadFinalOpcional);
 	}
 
-	// Ingresando un automovil con opcionales que descuenta stock, no hay stock TIPO AUTO
+	// Ingresando un automovil con opcionales que descuenta stock, no hay stock TIPO
+	// AUTO
 	@Test
-	public void saveAutomovilWithOpcionalDescontadoStockTipoAutoError() {
+	public void saveAutomovilWithOpcionalDescontadoStockTipoAutoSinStock() {
 		List<Integer> opcionalList = Arrays.asList(1);
 
 		assertThatThrownBy(() -> automovilService.save(3, opcionalList)).isInstanceOf(IllegalArgumentException.class)
-		.hasMessage("El tipo de auto ingresado no tiene stock");
+				.hasMessage("El tipo de auto ingresado no tiene stock");
 
 	}
-	
+
 	// Ingresando un automovil con opcionales que descuenta stock, no hay stock OPCIONAL
 	@Test
-	public void saveAutomovilWithOpcionalDescontadoStockOpcionalError() {
+	public void saveAutomovilWithOpcionalDescontadoStockOpcionalSinStock() {
 		List<Integer> opcionalList = Arrays.asList(5);
 
 		assertThatThrownBy(() -> automovilService.save(1, opcionalList)).isInstanceOf(IllegalArgumentException.class)
-		.hasMessage("El opcional ingresado no tiene stock");
+				.hasMessage("El opcional ingresado no tiene stock");
 
 	}
 
 	// Borrar un automovil sin opcionales
 	@Test
-	public void deleteAutomovilOk(){		
+	public void deleteAutomovilOk() {
 		automovilService.deleteAutomovil(1);
 		assertThat(automovilDao.existsById(1)).isFalse();
 	}
-	
-	// Borrar un automovil CON opcionales
 
+	// Borrar un automovil CON opcionales
+	@Test
+	public void deleteAutomovilWithOpcionalesOk() {
+		automovilService.deleteAutomovil(2);
+		assertThat(automovilDao.existsById(2)).isFalse();
+		assertThat(automovilOpcionalDao.existsById(1)).isFalse();
+	}
+
+	// Borrar un automovil que NO existe
+	@Test
+	public void deleteAutomovilNoExist() {
+		assertThatThrownBy(() -> automovilService.deleteAutomovil(3)).isInstanceOf(IllegalArgumentException.class)
+		.hasMessage("El automovil ingresado no existe");
+	}
+	
 	// Borrar un opcional de un automovil (OpcionalAutomovil)
+	@Test
+	public void deleteAutomovilOpcional() {
+		List<Integer> opcionalList = Arrays.asList(1);
+		automovilOpcionalService.deleteAutomovilOpcionalByAutomovilIdAndOpcinalList(2, opcionalList);
+		assertThat(automovilOpcionalDao.validateAutomovilAutomovilId(2, 1)).isFalse();
+	}
+	
+	// Borrar un opcional que NO existe para el automovil
+	@Test
+	public void deleteAutomovilOpcionalNoExist() {
+		List<Integer> opcionalList = Arrays.asList(3);
+		assertThatThrownBy(() -> automovilOpcionalService.deleteAutomovilOpcionalByAutomovilIdAndOpcinalList(2, opcionalList)).isInstanceOf(IllegalArgumentException.class)
+		.hasMessage("Uno de los opcionales ingresados no existe para este automovil");
+	}
+	
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
