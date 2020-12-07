@@ -22,4 +22,17 @@ public class OpcionalService  {
 		return opcionalDao.findById(opcionalId).get();
 	}
 	
+	public boolean existById(int opcionalId){
+		return opcionalDao.existsById(opcionalId);
+	}
+	
+	public void updateCantidadOpcional( Opcional opcional ) {
+		opcional.setCantidad( opcional.getCantidad() - 1);
+		opcionalDao.save(opcional);
+	}
+	
+	public Boolean validateStockOpcional( int opcionalId ) {
+		return opcionalDao.validateStockOpcional(opcionalId);
+	}	
+		
 }

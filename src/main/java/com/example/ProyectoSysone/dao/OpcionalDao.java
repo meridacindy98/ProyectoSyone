@@ -15,5 +15,7 @@ public interface OpcionalDao extends JpaRepository<Opcional, Integer>{
 	@Query("SELECT precio FROM Opcional WHERE opcionalId = :opcionalId")
 	BigDecimal findPrecioByOpcionalId(@Param("opcionalId") int opcionalId);
 	
+	@Query("SELECT CASE WHEN COUNT(*) > 0 THEN true ELSE false END FROM Opcional WHERE cantidad > 0 and opcionalId = :opcionalId")
+	Boolean validateStockOpcional(@Param("opcionalId") int opcionalId);
 
 }

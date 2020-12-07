@@ -22,4 +22,13 @@ public class TipoAutoService {
 		return tipoAutoDao.findPrecioByTipoAutoId(tipoAutoId);
 	}
 	
+	public void updateCantidadTipoAuto( TipoAuto tipoAuto ) {
+		tipoAuto.setCantidad( tipoAuto.getCantidad() - 1 );
+		tipoAutoDao.save(tipoAuto);
+	}
+	
+	public Boolean validateStockTipoAuto( int tipoAutoId ) {
+		return tipoAutoDao.validateStockTipoAuto(tipoAutoId);
+	}
+	
 }

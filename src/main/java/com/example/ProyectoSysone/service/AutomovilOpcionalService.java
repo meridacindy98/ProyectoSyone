@@ -16,4 +16,8 @@ public class AutomovilOpcionalService {
 		return automovilOpcionalDao.save(automovilOpcional);
 	}
 	
+	public void deleteAutomovilOpcional( AutomovilOpcional automovilOpcional ) {
+		automovilOpcionalDao.delete(automovilOpcional);
+	}
+	
 }

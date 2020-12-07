@@ -64,7 +64,7 @@ public class ProyectoSysoneApplicationTests {
 		List<Integer> opcionalList = Arrays.asList(1, 2, 3);
 
 		assertThatThrownBy(() -> automovilService.save(-1, opcionalList)).isInstanceOf(IllegalArgumentException.class)
-				.hasMessage("El tipo auto no existia.");
+				.hasMessage("El tipo auto no existe.");
 
 	}
 
@@ -134,16 +134,43 @@ public class ProyectoSysoneApplicationTests {
 		
 	}
 	
+	//Ingresando un opcional que no existe
+	@Test
 	public void saveAutomovilWithOpcionalError() {				
 		List<Integer> opcionalList = Arrays.asList(-1);
-
-		Automovil automovil = automovilService.save(1, opcionalList);
-
-		assertThat( automovilOpcionalDao.findByAutomovilAutomovilId( automovil.getAutomovilId() ) );		
+		
+		assertThatThrownBy(() -> automovilService.save(1, opcionalList))
+		.isInstanceOf(IllegalArgumentException.class)
+		.hasMessage("Uno de los opcionales ingresados no existe.");		
 		
 	}
 	
+	//Ingresando un automovil con opcionales que descuenta stock
+	@Test
+	public void saveAutomovilWithOpcionalDescontadoStockOK() {				
+		List<Integer> opcionalList = Arrays.asList(1);
+		
+		TipoAuto tipoAuto = tipoAutoDao.findById(1).get();
+		int cantidadInicialTipoAuto = tipoAuto.getCantidad();
+		
+		Opcional opcional = opcionalDao.findById( opcionalList.get(0).intValue() ).get();
+		int cantidadInicialOpcional = opcional.getCantidad();
+		
+		automovilService.save(1, opcionalList);
+		
+		tipoAuto = tipoAutoDao.findById(1).get();
+		int cantidadFinalTipoAuto = tipoAuto.getCantidad();
+		
+		opcional = opcionalDao.findById( opcionalList.get(0).intValue() ).get();
+		int cantidadFinalOpcional = opcional.getCantidad();
+		
+		assertThat( cantidadInicialTipoAuto ).isGreaterThan( cantidadFinalTipoAuto );
+		assertThat( cantidadInicialOpcional ).isGreaterThan( cantidadFinalOpcional );
+	}
 	
+	//Borrar un automovil
+	
+	//Borrar un opcional de un automovil (OpcionalAutomovil)
 	
 
 }
