@@ -7,14 +7,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import lombok.Data;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "TIPOAUTO")
 public class TipoAuto {
 	
 	@Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY )
+    @GeneratedValue( strategy = GenerationType.AUTO )
 	private int tipoAutoId;
 	
 	@Column(length = 50)

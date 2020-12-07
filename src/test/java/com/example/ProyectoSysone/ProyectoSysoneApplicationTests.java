@@ -1,7 +1,6 @@
 package com.example.ProyectoSysone;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -11,16 +10,15 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.Assert;
 
 import com.example.ProyectoSysone.dao.AutomovilDao;
 import com.example.ProyectoSysone.dao.AutomovilOpcionalDao;
 import com.example.ProyectoSysone.dao.OpcionalDao;
 import com.example.ProyectoSysone.dao.TipoAutoDao;
 import com.example.ProyectoSysone.entity.Automovil;
-import com.example.ProyectoSysone.entity.AutomovilOpcional;
 import com.example.ProyectoSysone.entity.Opcional;
 import com.example.ProyectoSysone.entity.TipoAuto;
 import com.example.ProyectoSysone.service.AutomovilOpcionalService;
@@ -53,10 +51,11 @@ public class ProyectoSysoneApplicationTests {
 	public void saveAutomovilOk() {
 
 		List<Integer> opcionalList = Arrays.asList(1, 2, 3);
-		System.out.println(automovilDao.count());
+		
 		Automovil automovil = automovilService.save(1, opcionalList);
-//		Assert.isTrue(automovilDao.existsById(automovil.getAutomovilId()), "El automovil no se guardo");
+		Assert.isTrue(automovilDao.existsById(automovil.getAutomovilId()), "El automovil no se guardo");
 		assertThat(automovilDao.existsById(automovil.getAutomovilId())).isTrue();
+		
 	}
 
 	@Test
