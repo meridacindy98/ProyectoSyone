@@ -81,6 +81,8 @@ public class AutomovilService {
 			throw new IllegalArgumentException("El automovil no existe.", e);
 		}
 		
+		//verifico que el automovil tenga opcionales
+		
 		automovilDao.delete(automovil);
 	}
 

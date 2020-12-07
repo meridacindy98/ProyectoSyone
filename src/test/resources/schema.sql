@@ -37,15 +37,31 @@ create table AUTOMOVILOPCIONAL(
     automovilOpcionalId int IDENTITY(1,1) primary key not null,
     automovilId int not null,    
     opcionalId int not null,
-  FOREIGN KEY (automovilId) REFERENCES AutomovilOpcional(automovilOpcionalId),
+  FOREIGN KEY (automovilId) REFERENCES Automovil(automovilId),
   FOREIGN KEY (opcionalId) REFERENCES Opcional(opcionalId)
 );
 insert into TipoAuto (cantidad, nombre, precio) values (30, 'sedan', 230000.00);
 insert into TipoAuto (cantidad, nombre, precio) values (60, 'familiar', 245000.00);
-insert into TipoAuto (cantidad, nombre, precio) values ( 30,'coupe', 270000.00);
+insert into TipoAuto (cantidad, nombre, precio) values ( 0,'coupe', 270000.00);
 
 insert into Opcional ( nombre, codigo, precio, cantidad ) values ('Techo corredizo', 'TC',12000.00, 12);
 insert into Opcional ( nombre, codigo, precio, cantidad ) values ('Aire acondicionado', 'AA',20000.00, 20);
 insert into Opcional ( nombre, codigo, precio, cantidad ) values ('Sistemas de frenos', 'ABS',14000.00, 35);
 insert into Opcional ( nombre, codigo, precio, cantidad ) values ('Airbag', 'AB',7000.00, 14);
-insert into Opcional ( nombre, codigo, precio, cantidad ) values ('Llantas de aleación', 'LL',12000.00, 6);
+insert into Opcional ( nombre, codigo, precio, cantidad ) values ('Llantas de aleación', 'LL',12000.00, 0);
+
+insert into Automovil ( automovilId,tipoAutoId, precioFinal ) values ( 1, 242000.00);
+insert into Automovil ( automovilId,tipoAutoId, precioFinal ) values ( 1, 242000.00);
+
+insert into AutomovilOpcional ( automovilId, opcionalId ) values (2, 1);
+
+
+
+
+
+
+
+
+
+
+
