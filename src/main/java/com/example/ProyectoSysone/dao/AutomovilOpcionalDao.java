@@ -18,6 +18,6 @@ public interface AutomovilOpcionalDao extends JpaRepository<AutomovilOpcional, I
 	AutomovilOpcional findByAutomovilAutomovilIdAndOpcionalId( int automovilId, int opcionalId );
 	
 	@Query("SELECT CASE WHEN COUNT(*) > 0 THEN true ELSE false END FROM AutomovilOpcional WHERE automovilId = :automovilId AND opcionalId = :opcionalId")
-	Boolean validateAutomovilAutomovilId(@Param("automovilId") int automovilId, @Param("opcionalId") int opcionalId);
+	Boolean validateAutomovilAutomovilId( int automovilId,  int opcionalId);
 	
 }

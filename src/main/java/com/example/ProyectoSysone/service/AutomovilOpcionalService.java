@@ -15,6 +15,9 @@ public class AutomovilOpcionalService {
 	@Autowired
 	private AutomovilOpcionalDao automovilOpcionalDao;
 	
+	@Autowired
+	private AutomovilService automovilService;
+	
 	public AutomovilOpcional save( AutomovilOpcional automovilOpcional ) {
 		return automovilOpcionalDao.save(automovilOpcional);
 	}
@@ -35,10 +38,12 @@ public class AutomovilOpcionalService {
 			AutomovilOpcional automovilOpcional = automovilOpcionalDao.findByAutomovilAutomovilIdAndOpcionalId(automovilId, opcionalId);
 			automovilOpcionalDao.delete(automovilOpcional);
 		}
+		
+		automovilService.updatePrecioFInal(automovilId);
 
 	}
 		
-	public List<AutomovilOpcional> findByAutomovilAutomovilId( int automovilId ) {
+	public List<AutomovilOpcional> findByAutomovilId( int automovilId ) {
 		return automovilOpcionalDao.findByAutomovilAutomovilId(automovilId);
 	}
 	

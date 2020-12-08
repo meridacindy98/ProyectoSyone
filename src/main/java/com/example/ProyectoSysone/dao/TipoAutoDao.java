@@ -13,10 +13,10 @@ import com.example.ProyectoSysone.entity.TipoAuto;
 public interface TipoAutoDao extends JpaRepository<TipoAuto, Integer> {
 	
 	@Query("SELECT precio FROM TipoAuto WHERE tipoAutoId = :tipoAutoId")
-	BigDecimal findPrecioByTipoAutoId(@Param("tipoAutoId") int tipoAutoId);
+	BigDecimal findPrecioByTipoAutoId(int tipoAutoId);
 	
 	@Query("SELECT CASE WHEN COUNT(*) > 0 THEN true ELSE false END FROM TipoAuto WHERE cantidad > 0 and tipoAutoId = :tipoAutoId")
-	Boolean validateStockTipoAuto(@Param("tipoAutoId") int tipoAutoId);
+	Boolean validateStockTipoAuto(int tipoAutoId);
 	
 	
 }

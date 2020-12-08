@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.ProyectoSysone.entity.Opcional;
@@ -13,9 +12,9 @@ import com.example.ProyectoSysone.entity.Opcional;
 public interface OpcionalDao extends JpaRepository<Opcional, Integer>{
 	
 	@Query("SELECT precio FROM Opcional WHERE opcionalId = :opcionalId")
-	BigDecimal findPrecioByOpcionalId(@Param("opcionalId") int opcionalId);
+	BigDecimal findPrecioByOpcionalId(int opcionalId);
 	
 	@Query("SELECT CASE WHEN COUNT(*) > 0 THEN true ELSE false END FROM Opcional WHERE cantidad > 0 and opcionalId = :opcionalId")
-	Boolean validateStockOpcional(@Param("opcionalId") int opcionalId);
+	Boolean validateStockOpcional(int opcionalId);
 
 }
