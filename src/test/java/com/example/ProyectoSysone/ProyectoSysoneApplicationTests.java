@@ -1,6 +1,7 @@
 package com.example.ProyectoSysone;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -13,14 +14,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 
 import com.example.ProyectoSysone.dao.AutomovilDao;
 import com.example.ProyectoSysone.dao.AutomovilOpcionalDao;
 import com.example.ProyectoSysone.dao.OpcionalDao;
 import com.example.ProyectoSysone.dao.TipoAutoDao;
 import com.example.ProyectoSysone.entity.Automovil;
-import com.example.ProyectoSysone.entity.AutomovilOpcional;
 import com.example.ProyectoSysone.entity.Opcional;
 import com.example.ProyectoSysone.entity.TipoAuto;
 import com.example.ProyectoSysone.service.AutomovilOpcionalService;
@@ -73,8 +72,7 @@ public class ProyectoSysoneApplicationTests {
 
 	}
 
-	// Guarda un automovil SIN opcionales validando que el calculo del precio final
-	// sea correcto
+	// Guarda un automovil SIN opcionales validando que el calculo del precio final sea correcto
 	@Test
 	public void saveAutomovilTotalPriceWithoutOpcionalOk() {
 
@@ -86,8 +84,7 @@ public class ProyectoSysoneApplicationTests {
 
 	}
 
-	// Guarda un automovil CON mas de un opcional validando que el calculo del
-	// precio final sea correcto
+	// Guarda un automovil CON MAS de un opcional validando que el calculo del precio final sea correcto
 	@Test
 	public void saveAutomovilTotalPriceWithOpcionalesOk() {
 
@@ -99,8 +96,7 @@ public class ProyectoSysoneApplicationTests {
 
 	}
 
-	// Guarda un automovil CON UN opcional validando que el calculo del precio final
-	// sea correcto
+	// Guarda un automovil CON UN opcional validando que el calculo del precio final sea correcto
 	@Test
 	public void saveAutomovilTotalPriceWithOneOpcionalOk() {
 
@@ -133,8 +129,7 @@ public class ProyectoSysoneApplicationTests {
 
 	}
 
-	// Guarda un automovil con UN opcional y valida que haya persistido bien en
-	// AutomovilOpcional
+	// Guarda un automovil con UN opcional y valida que haya persistido bien en AutomovilOpcional
 	@Test
 	public void saveAutomovilWithOpcionalOk() {
 		List<Integer> opcionalList = Arrays.asList(1);
@@ -157,7 +152,7 @@ public class ProyectoSysoneApplicationTests {
 
 	}
 
-	// Ingresando un automovil con opcionales que descuenta stock
+	// Ingresando un automovil con opcionales que descuenta stock del tipo de auto y de los opcionales
 	@Test
 	public void saveAutomovilWithOpcionalDescontadoStockOk() {
 		List<Integer> opcionalList = Arrays.asList(1);
@@ -202,7 +197,7 @@ public class ProyectoSysoneApplicationTests {
 
 	}
 
-	// Borrar un automovil sin opcionales
+	// Borrar un automovil SIN opcionales
 	@Test
 	public void deleteAutomovilOk() {
 		automovilService.deleteAutomovil(1);
@@ -231,16 +226,26 @@ public class ProyectoSysoneApplicationTests {
 		automovilOpcionalService.deleteAutomovilOpcionalByAutomovilIdAndOpcinalList(2, opcionalList);
 		assertThat(automovilOpcionalDao.validateAutomovilAutomovilId(2, 1)).isFalse();
 	}
+
+	// Borrar un opcional de un automovil (OpcionalAutomovil) y modificar el precioFinal de Automovil
+	@Test
+	public void deleteAutomovilOpcionalWithUpdatePrecioFinal() {
+		List<Integer> opcionalList = Arrays.asList(1);
+		automovilOpcionalService.deleteAutomovilOpcionalByAutomovilIdAndOpcinalList(2, opcionalList);
+
+		assertThat(automovilDao.findById(2).get().getPrecioFinal())
+				.isEqualTo(BigDecimal.valueOf(230000.00).setScale(2));
+
+	}
 	
-	// Borrar un opcional de un automovil (OpcionalAutomovil) y modificar el precioFinal de Automovil 
-		@Test
-		public void deleteAutomovilOpcionalWithUpdatePrecioFinal() {
-			List<Integer> opcionalList = Arrays.asList(1);
-			automovilOpcionalService.deleteAutomovilOpcionalByAutomovilIdAndOpcinalList(2, opcionalList);			
-			
-			assertThat( automovilDao.findById(2).get().getPrecioFinal() ).isEqualTo(BigDecimal.valueOf(230000.00).setScale(2));
-			
-		}
+	//Borrar un opcional de un automovil y modificar el stock del opcional borrado 
+	@Test
+	public void deleteAutomovilOpcionalWithUpdateCantidadOpcional() {
+		List<Integer> opcionalList = Arrays.asList(1);
+		automovilOpcionalService.deleteAutomovilOpcionalByAutomovilIdAndOpcinalList(2, opcionalList);
+		
+		assertThat(opcionalDao.findById(1).get().getCantidad() ).isEqualTo(13);
+	}
 
 	// Borrar un opcional que NO existe para el automovil
 	@Test
@@ -250,6 +255,36 @@ public class ProyectoSysoneApplicationTests {
 				() -> automovilOpcionalService.deleteAutomovilOpcionalByAutomovilIdAndOpcinalList(2, opcionalList))
 						.isInstanceOf(IllegalArgumentException.class)
 						.hasMessage("Uno de los opcionales ingresados no existe para este automovil");
-	}
+	}	
 
+	//Modificar el tipo de auto de un automovil y modifcar el precioFinal del automovil
+	@Test
+	public void updateTipoAutoIdAutomovilWithUpdatePrecioFinal() {
+		automovilService.updateTipoAuto(1, 2);
+		assertThat(automovilDao.findById(1).get().getPrecioFinal()).isEqualTo(BigDecimal.valueOf(245000.00).setScale(2));
+	}
+	
+	//Modificar con un Automovil que no existe 
+		@Test 
+		public void updateAutomovilNoExist() {
+			assertThatThrownBy(() -> automovilService.updateTipoAuto(3, 2)).isInstanceOf(IllegalArgumentException.class)
+			.hasMessage("El automovil ingresado no existe");
+		}
+	
+	//Modificar un Automovil con un tipo de auto que no existe
+	@Test 
+	public void updateTipoAutoIdAutomovilNoExist() {
+		assertThatThrownBy(() -> automovilService.updateTipoAuto(1, 5)).isInstanceOf(IllegalArgumentException.class)
+		.hasMessage("El tipo de auto ingresado no existe");
+	}
+	
+	//Modificar el tipo de auto de un automovil y modifcar el stock del tipo de auto
+	@Test
+	public void updateTipoAutoIdAutomovilWithUpdateStockTipoAuto() {
+		automovilService.updateTipoAuto(1, 2);
+		assertThat(tipoAutoDao.findById(1).get().getCantidad() ).isEqualTo(31); //Tipo de auto viejo
+		assertThat(tipoAutoDao.findById(2).get().getCantidad() ).isEqualTo(59); //Tipo de dato actualizado
+	}
+		
+	
 }

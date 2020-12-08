@@ -42,7 +42,7 @@ create table AUTOMOVILOPCIONAL(
 );
 insert into TipoAuto (cantidad, nombre, precio) values (30, 'sedan', 230000.00);
 insert into TipoAuto (cantidad, nombre, precio) values (60, 'familiar', 245000.00);
-insert into TipoAuto (cantidad, nombre, precio) values ( 0,'coupe', 270000.00);
+insert into TipoAuto (cantidad, nombre, precio) values (0,'coupe', 270000.00);
 
 insert into Opcional ( nombre, codigo, precio, cantidad ) values ('Techo corredizo', 'TC',12000.00, 12);
 insert into Opcional ( nombre, codigo, precio, cantidad ) values ('Aire acondicionado', 'AA',20000.00, 20);
@@ -50,10 +50,10 @@ insert into Opcional ( nombre, codigo, precio, cantidad ) values ('Sistemas de f
 insert into Opcional ( nombre, codigo, precio, cantidad ) values ('Airbag', 'AB',7000.00, 14);
 insert into Opcional ( nombre, codigo, precio, cantidad ) values ('Llantas de aleación', 'LL',12000.00, 0);
 
---AutomovilId 1
+--AutomovilId 1 no tiene opcionales
 insert into Automovil ( tipoAutoId, precioFinal ) values ( 1, 230000.00);
 
---AutomovilId 2
+--AutomovilId 2 tiene un opcional
 insert into Automovil ( tipoAutoId, precioFinal ) values ( 1, 242000.00);
 
 --AutomovilOpcionalId 1

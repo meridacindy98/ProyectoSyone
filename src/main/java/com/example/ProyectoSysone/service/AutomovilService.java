@@ -60,13 +60,13 @@ public class AutomovilService {
 
 		Automovil automovil = new Automovil(tipoAuto, calculateTotalPrice(tipoAutoId, opcionalList));
 		automovil = automovilDao.save(automovil);
-		tipoAutoService.updateCantidadTipoAuto(tipoAuto);
+		tipoAutoService.updateLessCantidadTipoAuto(tipoAuto);
 
 		for (Integer opcionalId : opcionalList) {
 			Opcional opcional = opcionalService.findOpcionalById(opcionalId.intValue());
 			AutomovilOpcional automovilOpcional = new AutomovilOpcional(automovil, opcional);
 			automovilOpcionalService.save(automovilOpcional);
-			opcionalService.updateCantidadOpcional(opcional);
+			opcionalService.updateLessCantidadOpcional(opcional);
 		}
 
 		return automovil;
@@ -90,8 +90,35 @@ public class AutomovilService {
 		automovilDao.delete(automovil);
 	}
 	
-	public void updatePrecioFInal( int automovilId ) {
+	public void updateTipoAuto( int automovilId, int tipoAutoIdCurrent ) {
 		
+		Automovil automovil;		
+		try {
+			automovil = automovilDao.findById( automovilId ).get();
+		} catch (NoSuchElementException e) {
+			throw new IllegalArgumentException("El automovil ingresado no existe", e);
+		}
+		
+		TipoAuto tipoAutoOld = automovil.getTipoAuto();
+				
+		TipoAuto tipoAutoCurrent;
+		try {
+			tipoAutoCurrent = tipoAutoService.findById(tipoAutoIdCurrent); 
+		} catch (NoSuchElementException e) {
+			throw new IllegalArgumentException("El tipo de auto ingresado no existe", e);
+		}
+		
+		automovil.setTipoAuto(tipoAutoCurrent);
+		automovil = automovilDao.save(automovil);
+		
+		updatePrecioFInal( automovil.getAutomovilId() );
+		
+		tipoAutoService.updateMoreCantidadTipoAuto(tipoAutoOld);		 
+		tipoAutoService.updateLessCantidadTipoAuto(tipoAutoCurrent);
+		
+	}
+	
+	public void updatePrecioFInal( int automovilId ) {		
 		Automovil automovil = automovilDao.findById( automovilId ).get();
 		
 		List<AutomovilOpcional> automovilOpcionalList = automovilOpcionalService.findByAutomovilId(automovilId);
@@ -102,13 +129,9 @@ public class AutomovilService {
 		
 		automovil.setPrecioFinal( calculateTotalPrice( automovil.getTipoAuto().getTipoAutoId(), opcionalList) );		
 		
-		updateAutomovil(automovil);
-
-	}
-	
-	public void updateAutomovil( Automovil automovil ) {
 		automovilDao.save(automovil);
 	}
+
 
 	private BigDecimal calculateTotalPrice(int tipoAutoId, List<Integer> opcionalList) {
 

@@ -1,13 +1,13 @@
 package com.example.ProyectoSysone.service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.ProyectoSysone.dao.AutomovilOpcionalDao;
 import com.example.ProyectoSysone.entity.AutomovilOpcional;
+import com.example.ProyectoSysone.entity.Opcional;
 
 @Service
 public class AutomovilOpcionalService {
@@ -17,6 +17,9 @@ public class AutomovilOpcionalService {
 	
 	@Autowired
 	private AutomovilService automovilService;
+	
+	@Autowired
+	private OpcionalService opcionalService;
 	
 	public AutomovilOpcional save( AutomovilOpcional automovilOpcional ) {
 		return automovilOpcionalDao.save(automovilOpcional);
@@ -37,6 +40,8 @@ public class AutomovilOpcionalService {
 		for (Integer opcionalId : opcionalIdList) {
 			AutomovilOpcional automovilOpcional = automovilOpcionalDao.findByAutomovilAutomovilIdAndOpcionalId(automovilId, opcionalId);
 			automovilOpcionalDao.delete(automovilOpcional);
+			Opcional opcional =  opcionalService.findOpcionalById(opcionalId);
+			opcionalService.updateMoreCantidadOpcional(opcional);
 		}
 		
 		automovilService.updatePrecioFInal(automovilId);
