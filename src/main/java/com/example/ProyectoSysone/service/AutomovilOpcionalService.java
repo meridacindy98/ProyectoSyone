@@ -30,15 +30,15 @@ public class AutomovilOpcionalService {
 		automovilOpcionalDao.delete(automovilOpcional);
 	}
 		
-	public void deleteAutomovilOpcionalByAutomovilIdAndOpcinalList( int automovilId, List<Integer> opcionalIdList ) {			
+	public void deleteAutomovilOpcionalByAutomovilIdAndOpcinalList( int automovilId, List<Integer> opcionalListId ) {			
 		
-		opcionalIdList.stream().forEach( opcionalId -> {
+		opcionalListId.stream().forEach( opcionalId -> {
 			if ( !automovilOpcionalDao.validateAutomovilAutomovilId(automovilId, opcionalId) ) {
 				throw new IllegalArgumentException("Uno de los opcionales ingresados no existe para este automovil");
 			}
 		} );
 		
-		for (Integer opcionalId : opcionalIdList) {
+		for (Integer opcionalId : opcionalListId) {
 			AutomovilOpcional automovilOpcional = automovilOpcionalDao.findByAutomovilIdAndOpcionalId(automovilId, opcionalId);
 			automovilOpcionalDao.delete(automovilOpcional);
 			Opcional opcional =  opcionalService.findOpcionalById(opcionalId);

@@ -35,6 +35,10 @@ public class AutomovilService {
 	public Automovil save(int tipoAutoId, List<Integer> opcionalList) {
 
 		TipoAuto tipoAuto;
+		
+		if ( tipoAutoId == 0 ) {
+			throw new IllegalArgumentException("Se debe seleccionar un tipo de auto.");
+		}
 
 		try {
 			tipoAuto = tipoAutoService.findById(tipoAutoId);
@@ -90,7 +94,7 @@ public class AutomovilService {
 		automovilDao.delete(automovil);
 	}
 	
-	public void updateTipoAuto( int automovilId, int tipoAutoIdUpdate ) {
+	public Automovil updateTipoAuto( int automovilId, int tipoAutoIdUpdate ) {
 		
 		Automovil automovil;		
 		try {
@@ -109,16 +113,16 @@ public class AutomovilService {
 		}
 		
 		automovil.setTipoAuto(tipoAutoUpdate);
-		automovil = automovilDao.save(automovil);
 		
-		updatePrecioFInal( automovil.getAutomovilId() );
+		automovil = updatePrecioFInal( automovil.getAutomovilId() );
 		
 		tipoAutoService.updateMoreCantidadTipoAuto(tipoAutoCurrent);		 
 		tipoAutoService.updateLessCantidadTipoAuto(tipoAutoUpdate);
 		
+		return automovil;
 	}
 	
-	public void updatePrecioFInal( int automovilId ) {		
+	public Automovil updatePrecioFInal( int automovilId ) {		
 		Automovil automovil = automovilDao.findById( automovilId ).get();
 		
 		List<AutomovilOpcional> automovilOpcionalList = automovilOpcionalService.findByAutomovilId(automovilId);
@@ -129,7 +133,7 @@ public class AutomovilService {
 		
 		automovil.setPrecioFinal( calculateTotalPrice( automovil.getTipoAuto().getTipoAutoId(), opcionalList) );		
 		
-		automovilDao.save(automovil);
+		return automovilDao.save(automovil);
 	}
 	
 	public List <Automovil> getAllAutomoviles(){
