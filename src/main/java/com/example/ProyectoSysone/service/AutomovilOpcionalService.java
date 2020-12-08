@@ -52,5 +52,13 @@ public class AutomovilOpcionalService {
 		return automovilOpcionalDao.findByAutomovilAutomovilId(automovilId);
 	}
 	
+	public int getCountAutomovilOpcionalByOpcionalId( int opcionalId ) {
+		return automovilOpcionalDao.getCountAutomovilOpcionalByOpcionalId(opcionalId);
+	}
+	
+	public Long getCountAllAutomovilOpcional() {
+		return automovilOpcionalDao.count();
+	}
+	
 	
 }

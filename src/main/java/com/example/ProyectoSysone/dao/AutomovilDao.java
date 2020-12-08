@@ -8,10 +8,8 @@ import com.example.ProyectoSysone.entity.Automovil;
 
 @Repository
 public interface AutomovilDao extends JpaRepository<Automovil, Integer>{
-			
-	@Query("SELECT tipoAutoId FROM TipoAuto WHERE automovilId = :automovilId")
-	int findTipoAutoIdByAutomovilId(int automovilId);
-	
-	
-	
+				
+	@Query("SELECT COUNT(*) FROM Automovil WHERE tipoAUtoId = :tipoAUtoId")
+	int getCountAutomovilesByTipoAutoId( int tipoAUtoId );
+		
 }

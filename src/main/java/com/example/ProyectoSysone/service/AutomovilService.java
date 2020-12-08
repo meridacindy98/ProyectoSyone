@@ -90,7 +90,7 @@ public class AutomovilService {
 		automovilDao.delete(automovil);
 	}
 	
-	public void updateTipoAuto( int automovilId, int tipoAutoIdCurrent ) {
+	public void updateTipoAuto( int automovilId, int tipoAutoIdUpdate ) {
 		
 		Automovil automovil;		
 		try {
@@ -99,22 +99,22 @@ public class AutomovilService {
 			throw new IllegalArgumentException("El automovil ingresado no existe", e);
 		}
 		
-		TipoAuto tipoAutoOld = automovil.getTipoAuto();
+		TipoAuto tipoAutoCurrent = automovil.getTipoAuto();
 				
-		TipoAuto tipoAutoCurrent;
+		TipoAuto tipoAutoUpdate;
 		try {
-			tipoAutoCurrent = tipoAutoService.findById(tipoAutoIdCurrent); 
+			tipoAutoUpdate = tipoAutoService.findById(tipoAutoIdUpdate); 
 		} catch (NoSuchElementException e) {
 			throw new IllegalArgumentException("El tipo de auto ingresado no existe", e);
 		}
 		
-		automovil.setTipoAuto(tipoAutoCurrent);
+		automovil.setTipoAuto(tipoAutoUpdate);
 		automovil = automovilDao.save(automovil);
 		
 		updatePrecioFInal( automovil.getAutomovilId() );
 		
-		tipoAutoService.updateMoreCantidadTipoAuto(tipoAutoOld);		 
-		tipoAutoService.updateLessCantidadTipoAuto(tipoAutoCurrent);
+		tipoAutoService.updateMoreCantidadTipoAuto(tipoAutoCurrent);		 
+		tipoAutoService.updateLessCantidadTipoAuto(tipoAutoUpdate);
 		
 	}
 	
@@ -131,7 +131,18 @@ public class AutomovilService {
 		
 		automovilDao.save(automovil);
 	}
-
+	
+	public List <Automovil> getAllAutomoviles(){
+		return automovilDao.findAll();
+	}
+	
+	public int getCountAutomovilesByTipoAutoId( int tipoAUtoId ) {
+		return automovilDao.getCountAutomovilesByTipoAutoId(tipoAUtoId);
+	}
+	
+	public Long getCountAllAutomovil() {
+		return automovilDao.count();
+	}
 
 	private BigDecimal calculateTotalPrice(int tipoAutoId, List<Integer> opcionalList) {
 
@@ -152,5 +163,5 @@ public class AutomovilService {
 		return priceTipoAuto.add(priceOpcional);
 
 	}
-
+		
 }

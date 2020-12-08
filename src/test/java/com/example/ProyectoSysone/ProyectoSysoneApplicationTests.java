@@ -22,8 +22,10 @@ import com.example.ProyectoSysone.dao.TipoAutoDao;
 import com.example.ProyectoSysone.entity.Automovil;
 import com.example.ProyectoSysone.entity.Opcional;
 import com.example.ProyectoSysone.entity.TipoAuto;
+import com.example.ProyectoSysone.model.Estadistica;
 import com.example.ProyectoSysone.service.AutomovilOpcionalService;
 import com.example.ProyectoSysone.service.AutomovilService;
+import com.example.ProyectoSysone.service.EstadisticasService;
 
 @SpringBootTest
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -48,6 +50,9 @@ public class ProyectoSysoneApplicationTests {
 
 	@Autowired
 	private OpcionalDao opcionalDao;
+	
+	@Autowired
+	private EstadisticasService estadisticasService;
 
 	// Guardar un automovil OK
 	@Test
@@ -209,13 +214,13 @@ public class ProyectoSysoneApplicationTests {
 	public void deleteAutomovilWithOpcionalesOk() {
 		automovilService.deleteAutomovil(2);
 		assertThat(automovilDao.existsById(2)).isFalse();
-		assertThat(automovilOpcionalDao.existsById(1)).isFalse();
+		assertThat(automovilOpcionalDao.existsById(3)).isFalse();
 	}
 
 	// Borrar un automovil que NO existe
 	@Test
 	public void deleteAutomovilNoExist() {
-		assertThatThrownBy(() -> automovilService.deleteAutomovil(3)).isInstanceOf(IllegalArgumentException.class)
+		assertThatThrownBy(() -> automovilService.deleteAutomovil(6)).isInstanceOf(IllegalArgumentException.class)
 				.hasMessage("El automovil ingresado no existe");
 	}
 
@@ -234,7 +239,7 @@ public class ProyectoSysoneApplicationTests {
 		automovilOpcionalService.deleteAutomovilOpcionalByAutomovilIdAndOpcinalList(2, opcionalList);
 
 		assertThat(automovilDao.findById(2).get().getPrecioFinal())
-				.isEqualTo(BigDecimal.valueOf(230000.00).setScale(2));
+				.isEqualTo(BigDecimal.valueOf(264000.00).setScale(2));
 
 	}
 	
@@ -250,7 +255,7 @@ public class ProyectoSysoneApplicationTests {
 	// Borrar un opcional que NO existe para el automovil
 	@Test
 	public void deleteAutomovilOpcionalNoExist() {
-		List<Integer> opcionalList = Arrays.asList(3);
+		List<Integer> opcionalList = Arrays.asList(4);
 		assertThatThrownBy(
 				() -> automovilOpcionalService.deleteAutomovilOpcionalByAutomovilIdAndOpcinalList(2, opcionalList))
 						.isInstanceOf(IllegalArgumentException.class)
@@ -261,13 +266,13 @@ public class ProyectoSysoneApplicationTests {
 	@Test
 	public void updateTipoAutoIdAutomovilWithUpdatePrecioFinal() {
 		automovilService.updateTipoAuto(1, 2);
-		assertThat(automovilDao.findById(1).get().getPrecioFinal()).isEqualTo(BigDecimal.valueOf(245000.00).setScale(2));
+		assertThat(automovilDao.findById(1).get().getPrecioFinal()).isEqualTo(BigDecimal.valueOf(277000.00).setScale(2));
 	}
 	
 	//Modificar con un Automovil que no existe 
 		@Test 
 		public void updateAutomovilNoExist() {
-			assertThatThrownBy(() -> automovilService.updateTipoAuto(3, 2)).isInstanceOf(IllegalArgumentException.class)
+			assertThatThrownBy(() -> automovilService.updateTipoAuto(6, 2)).isInstanceOf(IllegalArgumentException.class)
 			.hasMessage("El automovil ingresado no existe");
 		}
 	
@@ -284,6 +289,13 @@ public class ProyectoSysoneApplicationTests {
 		automovilService.updateTipoAuto(1, 2);
 		assertThat(tipoAutoDao.findById(1).get().getCantidad() ).isEqualTo(31); //Tipo de auto viejo
 		assertThat(tipoAutoDao.findById(2).get().getCantidad() ).isEqualTo(59); //Tipo de dato actualizado
+	}
+	
+	//pruebaaaaaaaaaas babosas
+	@Test
+	public void getEstadisticas() {
+		Estadistica estadistica = estadisticasService.getEstadisticas();		
+		assertThat(estadistica.getCantidadAutomoviles() ).isEqualTo( automovilService.getCountAllAutomovil().intValue() );
 	}
 		
 	

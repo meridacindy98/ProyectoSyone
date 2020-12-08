@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.ProyectoSysone.entity.AutomovilOpcional;
@@ -20,4 +19,6 @@ public interface AutomovilOpcionalDao extends JpaRepository<AutomovilOpcional, I
 	@Query("SELECT CASE WHEN COUNT(*) > 0 THEN true ELSE false END FROM AutomovilOpcional WHERE automovilId = :automovilId AND opcionalId = :opcionalId")
 	Boolean validateAutomovilAutomovilId( int automovilId,  int opcionalId);
 	
+	@Query("SELECT COUNT(*) FROM AutomovilOpcional WHERE opcionalId = :opcionalId")
+	int getCountAutomovilOpcionalByOpcionalId( int opcionalId );
 }

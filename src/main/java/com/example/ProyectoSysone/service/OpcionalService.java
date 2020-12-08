@@ -1,6 +1,7 @@
 package com.example.ProyectoSysone.service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,5 +40,9 @@ public class OpcionalService  {
 	public Boolean validateStockOpcional( int opcionalId ) {
 		return opcionalDao.validateStockOpcional(opcionalId);
 	}	
+		
+	public List<Opcional> findAll(){
+		return opcionalDao.findAll();
+	}
 		
 }

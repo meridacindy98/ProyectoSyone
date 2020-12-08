@@ -16,5 +16,5 @@ public interface OpcionalDao extends JpaRepository<Opcional, Integer>{
 	
 	@Query("SELECT CASE WHEN COUNT(*) > 0 THEN true ELSE false END FROM Opcional WHERE cantidad > 0 and opcionalId = :opcionalId")
 	Boolean validateStockOpcional(int opcionalId);
-
+	
 }
