@@ -14,7 +14,8 @@ import javax.persistence.Table;
 public class Opcional {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column( name = "opcionalId" )
 	private int opcionalId;
 	
     @Column(length = 5)

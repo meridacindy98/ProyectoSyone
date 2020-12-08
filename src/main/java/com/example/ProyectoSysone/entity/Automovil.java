@@ -2,6 +2,7 @@ package com.example.ProyectoSysone.entity;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,12 +15,14 @@ public class Automovil {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "automovilId")
     private int automovilId;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "tipoAutoId")
     private TipoAuto tipoAuto;
 
+    @Column(name = "precioFinal")
     private BigDecimal precioFinal;
 
     public Automovil( TipoAuto tipoAuto, BigDecimal precioFinal) {

@@ -1,5 +1,6 @@
 package com.example.ProyectoSysone.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class AutomovilOpcionalService {
 		} );
 		
 		for (Integer opcionalId : opcionalIdList) {
-			AutomovilOpcional automovilOpcional = automovilOpcionalDao.findByAutomovilAutomovilIdAndOpcionalId(automovilId, opcionalId);
+			AutomovilOpcional automovilOpcional = automovilOpcionalDao.findByAutomovilIdAndOpcionalId(automovilId, opcionalId);
 			automovilOpcionalDao.delete(automovilOpcional);
 			Opcional opcional =  opcionalService.findOpcionalById(opcionalId);
 			opcionalService.updateMoreCantidadOpcional(opcional);
@@ -58,6 +59,18 @@ public class AutomovilOpcionalService {
 	
 	public Long getCountAllAutomovilOpcional() {
 		return automovilOpcionalDao.count();
+	}
+	
+	public List<Opcional> getOpcionalListByAutomovilId( int automovilId ){
+		List<Integer> opcionalIdList =  automovilOpcionalDao.getOpcionalIdListByAutomovilId(automovilId);
+		
+		List<Opcional> opcionalList = new ArrayList<Opcional>();
+		
+		for ( Integer opcionalId : opcionalIdList ) {
+			opcionalList.add( opcionalService.findOpcionalById(opcionalId) );			
+		}
+		
+		return opcionalList;
 	}
 	
 	
