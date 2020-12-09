@@ -18,12 +18,12 @@ public class AutomovilOpcionalController {
 	@Autowired
 	private AutomovilOpcionalService automovilOpcionalService;
 	
-	@DeleteMapping("/automovilOpcional")
+	@DeleteMapping("/automovilOpcionalDelete")
 	public ResponseEntity<ResponseAutomovilOpcional> deleteAutomovilById( @RequestBody RequestAutomovilOpcional request) {		
 		return new ResponseEntity<>( automovilOpcionalService.deleteAutomovilOpcionalByAutomovilId( request.getAutomovilId() , request.getOpcionalIdList() ),HttpStatus.OK);
 	}
 	
-	@PostMapping("/automovilOpcionalDelete")
+	@PostMapping("/automovilOpcional")
 	public ResponseEntity<ResponseAutomovilOpcional> addAutomovilOpcional( @RequestBody RequestAutomovilOpcional request) {		
 		return new ResponseEntity<>( automovilOpcionalService.addAutomovilOpcionalByAutomovilId( request.getAutomovilId() , request.getOpcionalIdList() ), HttpStatus.OK);
 	}		
