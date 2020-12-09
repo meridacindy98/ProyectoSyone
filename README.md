@@ -98,6 +98,19 @@ Body:
 }
 ~~~
 
+**Status:** 500 Si se ingresa un opcional que no existe
+
+Body: 
+~~~
+{
+    "status": "INTERNAL_SERVER_ERROR",
+    "message": "Uno de los opcionales ingresados no existe.",
+    "errors": [
+        "Ocurrio un error"
+    ]
+}
+~~~
+
 
 ## Obtener un automovil
 GET: http://45.33.18.43:8080/automovil/{automovilId}
