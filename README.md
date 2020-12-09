@@ -25,6 +25,8 @@ Si se borro con exito.
 
 ##### RESPONSE: 
 Status: 500
+
+
 Body:
 ~~~
 {
@@ -43,6 +45,12 @@ PUT: http://45.33.18.43:8080/automovil/{automovilId}/{tipoAutoId}
 
 ## Borrar opcional u opcionales de un automovil
 DELETE: http://45.33.18.43:8080/automovilOpcional
+
+## Obtener las estadisticas
+GET: http://45.33.18.43:8080/stats
+##### RESPONSE: 
+Status: 500
+
 
 
 
