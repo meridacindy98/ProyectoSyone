@@ -22,10 +22,10 @@ import com.example.ProyectoSysone.dao.TipoAutoDao;
 import com.example.ProyectoSysone.entity.Automovil;
 import com.example.ProyectoSysone.entity.Opcional;
 import com.example.ProyectoSysone.entity.TipoAuto;
-import com.example.ProyectoSysone.model.Estadistica;
+import com.example.ProyectoSysone.model.Stat;
 import com.example.ProyectoSysone.service.AutomovilOpcionalService;
 import com.example.ProyectoSysone.service.AutomovilService;
-import com.example.ProyectoSysone.service.EstadisticasService;
+import com.example.ProyectoSysone.service.StatsService;
 
 @SpringBootTest
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -52,7 +52,7 @@ public class ProyectoSysoneApplicationTests {
 	private OpcionalDao opcionalDao;
 	
 	@Autowired
-	private EstadisticasService estadisticasService;
+	private StatsService estadisticasService;
 
 	// Guardar un automovil OK
 	@Test
@@ -290,13 +290,6 @@ public class ProyectoSysoneApplicationTests {
 		assertThat(tipoAutoDao.findById(1).get().getCantidad() ).isEqualTo(31); //Tipo de auto viejo
 		assertThat(tipoAutoDao.findById(2).get().getCantidad() ).isEqualTo(59); //Tipo de dato actualizado
 	}
-	
-	//pruebaaaaaaaaaas babosas
-	@Test
-	public void getEstadisticas() {
-		Estadistica estadistica = estadisticasService.getEstadisticas();		
-		assertThat(estadistica.getCantidadAutomoviles() ).isEqualTo( automovilService.getCountAllAutomovil().intValue() );
-	}
-		
+				
 	
 }
