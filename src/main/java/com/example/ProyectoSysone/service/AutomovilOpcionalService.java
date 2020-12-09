@@ -47,7 +47,7 @@ public class AutomovilOpcionalService {
 
 	}
 		
-	public List<AutomovilOpcional> findByAutomovilId( int automovilId ) {
+	public List<AutomovilOpcional> getAutomovilOpcionalByAutomovilId( int automovilId ) {
 		return automovilOpcionalDao.findByAutomovilAutomovilId(automovilId);
 	}
 	

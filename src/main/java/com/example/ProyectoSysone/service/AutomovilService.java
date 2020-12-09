@@ -46,8 +46,6 @@ public class AutomovilService {
 			throw new IllegalArgumentException("El tipo auto no existe.", e);
 		}
 
-//		Assert.isTrue(tipoAutoService.validateStockTipoAuto(tipoAutoId), "El tipo de auto ingresado no tiene stock");
-
 		if (opcionalList == null) {
 			opcionalList = new ArrayList<>();
 		}
@@ -58,19 +56,13 @@ public class AutomovilService {
 			}
 		});
 
-//		opcionalList.stream().forEach(opcionalId -> {
-//			Assert.isTrue(opcionalService.validateStockOpcional(opcionalId), "El opcional ingresado no tiene stock");
-//		});
-
 		Automovil automovil = new Automovil(tipoAuto, calculateTotalPrice(tipoAutoId, opcionalList));
 		automovil = automovilDao.save(automovil);
-//		tipoAutoService.updateLessCantidadTipoAuto(tipoAuto);
 
 		for (Integer opcionalId : opcionalList) {
 			Opcional opcional = opcionalService.findOpcionalById(opcionalId.intValue());
 			AutomovilOpcional automovilOpcional = new AutomovilOpcional(automovil, opcional);
 			automovilOpcionalService.save(automovilOpcional);
-//			opcionalService.updateLessCantidadOpcional(opcional);
 		}
 
 		return automovil;
@@ -86,7 +78,7 @@ public class AutomovilService {
 			throw new IllegalArgumentException("El automovil ingresado no existe", e);
 		}
 		
-		List<AutomovilOpcional> automovilOpcionalList = automovilOpcionalService.findByAutomovilId(automovilId);
+		List<AutomovilOpcional> automovilOpcionalList = automovilOpcionalService.getAutomovilOpcionalByAutomovilId(automovilId);
 		for ( AutomovilOpcional automovilOpcional: automovilOpcionalList ) {
 			automovilOpcionalService.deleteAutomovilOpcional(automovilOpcional);
 		}
@@ -120,7 +112,7 @@ public class AutomovilService {
 	public Automovil updatePrecioFInal( int automovilId ) {		
 		Automovil automovil = automovilDao.findById( automovilId ).get();
 		
-		List<AutomovilOpcional> automovilOpcionalList = automovilOpcionalService.findByAutomovilId(automovilId);
+		List<AutomovilOpcional> automovilOpcionalList = automovilOpcionalService.getAutomovilOpcionalByAutomovilId(automovilId);
 		
 		List<Integer> opcionalList = automovilOpcionalList.stream()
 									 .map( automovilOpcional ->  automovilOpcional.getOpcional().getOpcionalId() )
@@ -141,6 +133,16 @@ public class AutomovilService {
 	
 	public Long getCountAllAutomovil() {
 		return automovilDao.count();
+	}
+	
+	public Automovil getAutomovilById( int automovilId ) {
+		
+		try {
+			return automovilDao.findById( automovilId ).get(); 
+		} catch (NoSuchElementException e) {
+			throw new IllegalArgumentException("El automovil ingresado no existe", e);
+		}
+		
 	}
 
 	private BigDecimal calculateTotalPrice(int tipoAutoId, List<Integer> opcionalList) {

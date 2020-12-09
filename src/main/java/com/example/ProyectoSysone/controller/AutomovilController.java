@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ProyectoSysone.entity.Automovil;
 import com.example.ProyectoSysone.model.RequestPostAutomovil;
-import com.example.ProyectoSysone.model.ResponsePostAutomovil;
+import com.example.ProyectoSysone.model.ResponseAutomovil;
 import com.example.ProyectoSysone.service.AutomovilOpcionalService;
 import com.example.ProyectoSysone.service.AutomovilService;
 
@@ -39,12 +39,19 @@ public class AutomovilController {
 
 	}
 
-	// @GetMapping("/automoviles/{id}")
+	@GetMapping("/automovil/{automovilId}")
+	public ResponseEntity<ResponseAutomovil> getAutomovilById(@PathVariable("automovilId") int automovilId){
+		ResponseAutomovil response = new ResponseAutomovil();
+		response.setAutomovil( automovilService.getAutomovilById(automovilId) );
+		response.setOpcionalList( automovilOpcionalService.getOpcionalListByAutomovilId(automovilId) );
+		
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
 
 	@PostMapping(path = "/automovil", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResponsePostAutomovil> saveAutomovil(@RequestBody RequestPostAutomovil request) {
+	public ResponseEntity<ResponseAutomovil> saveAutomovil(@RequestBody RequestPostAutomovil request) {
 
-			ResponsePostAutomovil response = new ResponsePostAutomovil();
+			ResponseAutomovil response = new ResponseAutomovil();
 			response.setAutomovil(automovilService.save(request.getTipoAutoId(), request.getOpcionalList()));
 			response.setOpcionalList(
 					automovilOpcionalService.getOpcionalListByAutomovilId(response.getAutomovil().getAutomovilId()));
@@ -57,8 +64,7 @@ public class AutomovilController {
 
 			automovilService.deleteAutomovil(automovilId);
 			return new ResponseEntity<>(HttpStatus.OK);
-				
-		
+						
 	}		
 	
 	@PutMapping(value="/automovil/{automovilId}/{tipoAutoId}")

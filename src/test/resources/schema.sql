@@ -49,7 +49,7 @@ insert into TipoAuto ( nombre, precio) values ('coupe', 270000.00);
 insert into Opcional ( nombre, codigo, precio ) values ('Techo corredizo', 'TC',12000.00);
 insert into Opcional ( nombre, codigo, precio ) values ('Aire acondicionado', 'AA',20000.00);
 insert into Opcional ( nombre, codigo, precio ) values ('Sistemas de frenos', 'ABS',14000.00);
-insert into Opcional ( nombre, codigo, precio ) values ('Airbag', 'AB',7000.00, 14);
+insert into Opcional ( nombre, codigo, precio ) values ('Airbag', 'AB',7000.00);
 insert into Opcional ( nombre, codigo, precio ) values ('Llantas de aleación', 'LL',12000.00);
 
 --Insert a Automoviles

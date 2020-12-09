@@ -5,7 +5,7 @@ import java.util.List;
 import com.example.ProyectoSysone.entity.Automovil;
 import com.example.ProyectoSysone.entity.Opcional;
 
-public class ResponsePostAutomovil {
+public class ResponseAutomovil {
 	
 	private Automovil automovil;
 	private List<Opcional> opcionalList;
