@@ -12,21 +12,14 @@ Obtener todos los automoviles.
 
 ## Borrar un automovil
 DELETE: http://45.33.18.43:8080/automovil/{automovilId}
-
-
-Parametro: automovilId
+>Parametro: automovilId
 
 
 ##### RESPONSE: 
-Status: 200
-
-
+>Status: 200
 Si se borro con exito.
-
-##### RESPONSE: 
-Status: 500
-
-
+------------------------------------------------
+>Status: 500
 Body:
 ~~~
 {
