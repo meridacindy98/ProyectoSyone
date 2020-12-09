@@ -2,9 +2,48 @@
 ## Crear un automovil 
 POST: http://45.33.18.43:8080/automovil
 
-**PARAMETRO:** 
-- tipoAutoId: Id del tipo del autp
-- opcionalList: Lista que contiene el opcional o los opcionales para el autmovil
+**PARAMETROS:** 
+- **tipoAutoId:** Id del tipo del autp
+- **opcionalList:** Lista que contiene el opcional o los opcionales para el autmovil.No puede ingresarse opcionales repetidos.
+
+**RESPONSE:** 
+**Status:** 201 Si se creo el automovil con exito.
+
+Body: Devuelve los datos del nuevo automovil creado
+~~~
+{
+    "automovil": {
+        "automovilId": 5,
+        "tipoAuto": {
+            "tipoAutoId": 2,
+            "nombre": "familiar",
+            "precio": 245000
+        },
+        "precioFinal": 265000
+    },
+    "opcionalList": [
+        {
+            "opcionalId": 2,
+            "codigo": "AA",
+            "nombre": "Aire acondicionado",
+            "precio": 20000
+        }
+    ]
+}
+~~~
+
+**Status:** 500 Si se ingresan opcionales repetidos
+Body: 
+~~~
+{
+    "status": "INTERNAL_SERVER_ERROR",
+    "message": "No se aceptan opcionales duplicados",
+    "errors": [
+        "Ocurrio un error"
+    ]
+}
+~~~
+
 
 ## Obtener un automovil
 GET: http://45.33.18.43:8080/automovil/{automovilId}
