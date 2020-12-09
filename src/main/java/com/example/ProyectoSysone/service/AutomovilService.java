@@ -51,18 +51,12 @@ public class AutomovilService {
 		}
 
 		return automovil;
-	}
+	}	
 
 	public void deleteAutomovil(int automovilId) {
 		
-		Automovil automovil;
-		
-		try {
-			automovil =  automovilDao.findById( automovilId ).get();
-		} catch (NoSuchElementException e) {
-			throw new IllegalArgumentException("El automovil ingresado no existe", e);
-		}
-		
+		Automovil automovil = getAutomovilByIdAndValidate(automovilId);
+						
 		List<AutomovilOpcional> automovilOpcionalList = automovilOpcionalService.getAutomovilOpcionalByAutomovilId(automovilId);
 		for ( AutomovilOpcional automovilOpcional: automovilOpcionalList ) {
 			automovilOpcionalService.deleteAutomovilOpcional(automovilOpcional);
@@ -72,14 +66,9 @@ public class AutomovilService {
 	}
 	
 	public Automovil updateTipoAuto( int automovilId, int tipoAutoIdUpdate ) {
-		
-		Automovil automovil;		
-		try {
-			automovil = automovilDao.findById( automovilId ).get();
-		} catch (NoSuchElementException e) {
-			throw new IllegalArgumentException("El automovil ingresado no existe", e);
-		}
-								
+							
+		Automovil automovil = getAutomovilByIdAndValidate(automovilId);
+										
 		TipoAuto tipoAutoUpdate = validateTipoAuto( tipoAutoIdUpdate );
 		
 		automovil.setTipoAuto(tipoAutoUpdate);
@@ -125,7 +114,7 @@ public class AutomovilService {
 		
 	}
 	
-	private BigDecimal calculateTotalPrice(int tipoAutoId, List<Integer> opcionalList) {
+	public BigDecimal calculateTotalPrice(int tipoAutoId, List<Integer> opcionalList) {
 
 		BigDecimal priceTipoAuto = BigDecimal.ZERO;
 		BigDecimal priceOpcional = BigDecimal.ZERO;
@@ -139,7 +128,7 @@ public class AutomovilService {
 
 	}
 	
-	private void validateOpcionales ( List<Integer> opcionalList ) {
+	public void validateOpcionales ( List<Integer> opcionalList ) {
 		
 		opcionalList.stream().forEach(opcional -> {
 			if (Collections.frequency(opcionalList, opcional) > 1) {
@@ -152,9 +141,10 @@ public class AutomovilService {
 				throw new IllegalArgumentException("Uno de los opcionales ingresados no existe.");
 			}
 		});
+		
 	}
 	
-	private TipoAuto validateTipoAuto( int tipoAutoId ) {
+	public TipoAuto validateTipoAuto( int tipoAutoId ) {
 		
 		if ( tipoAutoId == 0 ) {
 			throw new IllegalArgumentException("Se debe seleccionar un tipo de auto.");

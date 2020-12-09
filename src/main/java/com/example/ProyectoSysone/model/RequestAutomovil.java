@@ -2,7 +2,7 @@ package com.example.ProyectoSysone.model;
 
 import java.util.List;
 
-public class RequestPostAutomovil {
+public class RequestAutomovil {
 
 	private int tipoAutoId;
 	private List<Integer> opcionalList;

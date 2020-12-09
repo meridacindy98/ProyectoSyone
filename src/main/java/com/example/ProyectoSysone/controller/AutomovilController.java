@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ProyectoSysone.entity.Automovil;
-import com.example.ProyectoSysone.model.RequestPostAutomovil;
-import com.example.ProyectoSysone.model.ResponseAutomovil;
+import com.example.ProyectoSysone.model.RequestAutomovil;
+import com.example.ProyectoSysone.model.ResponseAutomovilOpcional;
 import com.example.ProyectoSysone.service.AutomovilOpcionalService;
 import com.example.ProyectoSysone.service.AutomovilService;
 
@@ -40,8 +40,8 @@ public class AutomovilController {
 	}
 
 	@GetMapping("/automovil/{automovilId}")
-	public ResponseEntity<ResponseAutomovil> getAutomovilById(@PathVariable("automovilId") int automovilId){
-		ResponseAutomovil response = new ResponseAutomovil();
+	public ResponseEntity<ResponseAutomovilOpcional> getAutomovilById(@PathVariable("automovilId") int automovilId){
+		ResponseAutomovilOpcional response = new ResponseAutomovilOpcional();
 		response.setAutomovil( automovilService.getAutomovilByIdAndValidate(automovilId) );
 		response.setOpcionalList( automovilOpcionalService.getOpcionalListByAutomovilId(automovilId) );
 		
@@ -49,9 +49,9 @@ public class AutomovilController {
 	}
 
 	@PostMapping(path = "/automovil", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResponseAutomovil> saveAutomovil(@RequestBody RequestPostAutomovil request) {
+	public ResponseEntity<ResponseAutomovilOpcional> saveAutomovil(@RequestBody RequestAutomovil request) {
 
-			ResponseAutomovil response = new ResponseAutomovil();
+			ResponseAutomovilOpcional response = new ResponseAutomovilOpcional();
 			response.setAutomovil(automovilService.save(request.getTipoAutoId(), request.getOpcionalList()));
 			response.setOpcionalList(
 					automovilOpcionalService.getOpcionalListByAutomovilId(response.getAutomovil().getAutomovilId()));
