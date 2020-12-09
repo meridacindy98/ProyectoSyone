@@ -136,6 +136,39 @@ Body:
 ## Modificar tipo auto de un automovil
 PUT: http://45.33.18.43:8080/automovil/{automovilId}/{tipoAutoId}
 
+**PARAMETROS:** 
+- **automovilId:** Id del automovil
+- **tipoAutoId:** Id del nuevo tipo de auto
+
+**RESPONSE:** 
+
+**Status:** 200 Si se modifico con exito el tipo de auto
+Body: El automovil actualizado
+~~~
+{
+    "automovilId": 3,
+    "tipoAuto": {
+        "tipoAutoId": 3,
+        "nombre": "coupe",
+        "precio": 270000
+    },
+    "precioFinal": 290000
+}
+~~~
+
+**Status:** 500 Si el automovil ingresado no existe
+
+Body: 
+~~~
+{
+    "status": "INTERNAL_SERVER_ERROR",
+    "message": "El automovil ingresado no existe",
+    "errors": [
+        "Ocurrio un error"
+    ]
+}
+~~~
+
 
 ## Borrar opcional u opcionales de un automovil
 DELETE: http://45.33.18.43:8080/automovilOpcional
