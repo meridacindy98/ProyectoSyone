@@ -27,19 +27,19 @@ public class OpcionalService  {
 		return opcionalDao.existsById(opcionalId);
 	}
 	
-	public void updateLessCantidadOpcional( Opcional opcional ) {
-		opcional.setCantidad( opcional.getCantidad() - 1);
-		opcionalDao.save(opcional);
-	}
+//	public void updateLessCantidadOpcional( Opcional opcional ) {
+//		opcional.setCantidad( opcional.getCantidad() - 1);
+//		opcionalDao.save(opcional);
+//	}
+//	
+//	public void updateMoreCantidadOpcional( Opcional opcional ) {
+//		opcional.setCantidad( opcional.getCantidad() + 1);
+//		opcionalDao.save(opcional);
+//	}
 	
-	public void updateMoreCantidadOpcional( Opcional opcional ) {
-		opcional.setCantidad( opcional.getCantidad() + 1);
-		opcionalDao.save(opcional);
-	}
-	
-	public Boolean validateStockOpcional( int opcionalId ) {
-		return opcionalDao.validateStockOpcional(opcionalId);
-	}	
+//	public Boolean validateStockOpcional( int opcionalId ) {
+//		return opcionalDao.validateStockOpcional(opcionalId);
+//	}	
 		
 	public List<Opcional> findAll(){
 		return opcionalDao.findAll();

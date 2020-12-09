@@ -41,8 +41,8 @@ public class AutomovilOpcionalService {
 		for (Integer opcionalId : opcionalIdList) {
 			AutomovilOpcional automovilOpcional = automovilOpcionalDao.findByAutomovilIdAndOpcionalId(automovilId, opcionalId);
 			automovilOpcionalDao.delete(automovilOpcional);
-			Opcional opcional =  opcionalService.findOpcionalById(opcionalId);
-			opcionalService.updateMoreCantidadOpcional(opcional);
+//			Opcional opcional =  opcionalService.findOpcionalById(opcionalId);
+//			opcionalService.updateMoreCantidadOpcional(opcional);
 		}
 		
 		automovilService.updatePrecioFInal(automovilId);

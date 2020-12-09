@@ -46,7 +46,7 @@ public class AutomovilService {
 			throw new IllegalArgumentException("El tipo auto no existe.", e);
 		}
 
-		Assert.isTrue(tipoAutoService.validateStockTipoAuto(tipoAutoId), "El tipo de auto ingresado no tiene stock");
+//		Assert.isTrue(tipoAutoService.validateStockTipoAuto(tipoAutoId), "El tipo de auto ingresado no tiene stock");
 
 		if (opcionalList == null) {
 			opcionalList = new ArrayList<>();
@@ -58,19 +58,19 @@ public class AutomovilService {
 			}
 		});
 
-		opcionalList.stream().forEach(opcionalId -> {
-			Assert.isTrue(opcionalService.validateStockOpcional(opcionalId), "El opcional ingresado no tiene stock");
-		});
+//		opcionalList.stream().forEach(opcionalId -> {
+//			Assert.isTrue(opcionalService.validateStockOpcional(opcionalId), "El opcional ingresado no tiene stock");
+//		});
 
 		Automovil automovil = new Automovil(tipoAuto, calculateTotalPrice(tipoAutoId, opcionalList));
 		automovil = automovilDao.save(automovil);
-		tipoAutoService.updateLessCantidadTipoAuto(tipoAuto);
+//		tipoAutoService.updateLessCantidadTipoAuto(tipoAuto);
 
 		for (Integer opcionalId : opcionalList) {
 			Opcional opcional = opcionalService.findOpcionalById(opcionalId.intValue());
 			AutomovilOpcional automovilOpcional = new AutomovilOpcional(automovil, opcional);
 			automovilOpcionalService.save(automovilOpcional);
-			opcionalService.updateLessCantidadOpcional(opcional);
+//			opcionalService.updateLessCantidadOpcional(opcional);
 		}
 
 		return automovil;
@@ -103,7 +103,7 @@ public class AutomovilService {
 			throw new IllegalArgumentException("El automovil ingresado no existe", e);
 		}
 		
-		TipoAuto tipoAutoCurrent = automovil.getTipoAuto();
+//		TipoAuto tipoAutoCurrent = automovil.getTipoAuto();
 				
 		TipoAuto tipoAutoUpdate;
 		try {
@@ -116,8 +116,8 @@ public class AutomovilService {
 		
 		automovil = updatePrecioFInal( automovil.getAutomovilId() );
 		
-		tipoAutoService.updateMoreCantidadTipoAuto(tipoAutoCurrent);		 
-		tipoAutoService.updateLessCantidadTipoAuto(tipoAutoUpdate);
+//		tipoAutoService.updateMoreCantidadTipoAuto(tipoAutoCurrent);		 
+//		tipoAutoService.updateLessCantidadTipoAuto(tipoAutoUpdate);
 		
 		return automovil;
 	}
