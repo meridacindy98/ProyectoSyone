@@ -6,6 +6,17 @@ POST: http://45.33.18.43:8080/automovil
 - **tipoAutoId:** Id del tipo del autp
 - **opcionalList:** Lista que contiene el opcional o los opcionales para el autmovil.No puede ingresarse opcionales repetidos.
 
+Ejemplo RequestBody:
+~~~
+{
+    "tipoAutoId": "1",
+    "opcionalList":[
+        1,
+        2
+    ]
+}
+~~~
+
 **RESPONSE:** 
 
 **Status:** 201 Si se creo el automovil con exito.
@@ -110,6 +121,41 @@ GET: http://45.33.18.43:8080/automoviles
 
 Obtiene todos los automoviles.
 
+**Status:** 200
+
+Body: Devuelve los datos del automovil.
+~~~
+[
+    {
+        "automovilId": 3,
+        "tipoAuto": {
+            "tipoAutoId": 3,
+            "nombre": "coupe",
+            "precio": 270000
+        },
+        "precioFinal": 290000
+    },
+    {
+        "automovilId": 4,
+        "tipoAuto": {
+            "tipoAutoId": 2,
+            "nombre": "familiar",
+            "precio": 245000
+        },
+        "precioFinal": 265000
+    },
+    {
+        "automovilId": 5,
+        "tipoAuto": {
+            "tipoAutoId": 2,
+            "nombre": "familiar",
+            "precio": 245000
+        },
+        "precioFinal": 265000
+    }
+]
+~~~
+
 ## Borrar un automovil
 DELETE: http://45.33.18.43:8080/automovil/{automovilId}
 
@@ -172,6 +218,20 @@ Body:
 
 ## Borrar opcional u opcionales de un automovil
 DELETE: http://45.33.18.43:8080/automovilOpcional
+
+**PARAMETROS:** 
+- **automovilId:** Id del automovil
+- **opcionalIdList:** Opcional u opcionales que se desean quitar del automovil
+
+Ejemplo RequestBody:
+~~~
+{
+    "automovilId":"1",
+    "opcionalIdList":[
+        1
+    ]
+}
+~~~
 
 
 ## Obtener las estadisticas
