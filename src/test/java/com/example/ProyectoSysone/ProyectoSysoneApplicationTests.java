@@ -282,7 +282,7 @@ public class ProyectoSysoneApplicationTests {
 		assertThatThrownBy(() -> automovilService.updateTipoAuto(1, 5)).isInstanceOf(IllegalArgumentException.class)
 		.hasMessage("El tipo de auto ingresado no existe");
 	}
-	
+	 
 	//Modificar el tipo de auto de un automovil y modifcar el stock del tipo de auto
 	@Test
 	public void updateTipoAutoIdAutomovilWithUpdateStockTipoAuto() {
