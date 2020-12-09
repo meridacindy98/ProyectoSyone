@@ -253,6 +253,8 @@ Body: El automovil actualizado
 ## Obtener las estadisticas
 GET: http://45.33.18.43:8080/stats
 
+Obtiene una estadistica de la cantidad y porcentaje de cada tipo de auto y opcional que se utilizo para crear automoviles.
+
 ##### RESPONSE: 
 
 Status: 200
