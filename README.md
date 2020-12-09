@@ -2,6 +2,10 @@
 ## Crear un automovil 
 POST: http://45.33.18.43:8080/automovil
 
+**PARAMETRO:** 
+- tipoAutoId: Id del tipo del autp
+- opcionalList: Lista que contiene el opcional o los opcionales para el autmovil
+
 ## Obtener un automovil
 GET: http://45.33.18.43:8080/automovil/{automovilId}
 
@@ -14,7 +18,8 @@ Obtener todos los automoviles.
 
 ## Borrar un automovil
 DELETE: http://45.33.18.43:8080/automovil/{automovilId}
-**Parametro:** automovilId
+
+**PARAMETRO:** automovilId
 
 **RESPONSE**
 
