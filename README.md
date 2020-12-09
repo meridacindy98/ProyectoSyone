@@ -197,6 +197,8 @@ Body: Devuelve los datos del automovil.
 ]
 ~~~
 
+**Status:** 204 No Contetent Si no hay automoviles
+
 ## Borrar un automovil
 DELETE: http://45.33.18.43:8080/automovil/{automovilId}
 
