@@ -18,14 +18,11 @@ DELETE: http://45.33.18.43:8080/automovil/{automovilId}
 
 **RESPONSE**
 
-*Status:* 200
+Status: 200 Si se borro con exito.
 
-Si se borro con exito.
+Status: 500 Si se ingreso un automovil que no existe.
 
-*Status:* 500
-
-Si se ingreso un automovil que no existe.
-Body:
+Body
 ~~~
 {
     "status": "INTERNAL_SERVER_ERROR",
