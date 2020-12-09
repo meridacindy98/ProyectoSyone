@@ -19,10 +19,11 @@ Opcionales:
 ~~~
 
 Para este proyecto se crearon 4 tablas
--TipoAuto: Posee los 3 modelos de autos disponibles
--Opcional: Posee los 5 opcionales que pueden agregarse a un automovil
--Automovil: Persiste el automovil
--AutomovilOpcional: Persiste los opcionales del automovil si este los posee
+
+- **TipoAuto:** Posee los 3 modelos de autos disponibles
+- **Opcional:** Posee los 5 opcionales que pueden agregarse a un automovil
+- **Automovil:** Persiste el automovil
+- **AutomovilOpcional:** Persiste los opcionales del automovil si este los posee
 
 
 
