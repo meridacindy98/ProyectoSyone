@@ -80,6 +80,7 @@ GET: http://45.33.18.43:8080/automovil/{automovilId}
 **Status:** 200 Si se obtuvo el automovil conexito.
 
 Body: Devuelve los datos del automovil.
+
 ~~~
 {
     "automovil": {
@@ -119,7 +120,6 @@ Body:
 ## Obtener todos los automoviles
 GET: http://45.33.18.43:8080/automoviles
 
-Obtiene todos los automoviles.
 
 **Status:** 200
 
@@ -189,6 +189,7 @@ PUT: http://45.33.18.43:8080/automovil/{automovilId}/{tipoAutoId}
 **RESPONSE:** 
 
 **Status:** 200 Si se modifico con exito el tipo de auto
+
 Body: El automovil actualizado
 ~~~
 {
