@@ -8,12 +8,12 @@ GET: http://45.33.18.43:8080/automovil/{automovilId}
 Ingresar el Id de automovil que se desea eleminar.
 
 ### Obtener todos los automoviles
-~~~
 GET: http://45.33.18.43:8080/automoviles
 Obtener todos los automoviles.
 
 ### Borrar un automovil
 DELETE: http://45.33.18.43:8080/automovil/{automovilId}
+~~~
 Parametro: automovilId
 
 RESPONSE: 
