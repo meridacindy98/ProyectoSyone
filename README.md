@@ -238,8 +238,18 @@ Ejemplo RequestBody:
 
 **Status:** 200 Si se borro el opcional con exito
 
+**Status:** 500 Si el automovil ingresado no existe
+~~~
+{
+    "status": "INTERNAL_SERVER_ERROR",
+    "message": "El automovil ingresado no existe",
+    "errors": [
+        "Ocurrio un error"
+    ]
+}
+~~~
+
 **Status:** 500 Si uno de los opcionales ingresados no existe para ese automovil.
-Body: El automovil actualizado
 ~~~
 {
     "status": "INTERNAL_SERVER_ERROR",
