@@ -7,6 +7,7 @@ POST: http://45.33.18.43:8080/automovil
 - **opcionalList:** Lista que contiene el opcional o los opcionales para el autmovil.No puede ingresarse opcionales repetidos.
 
 **RESPONSE:** 
+
 **Status:** 201 Si se creo el automovil con exito.
 
 Body: Devuelve los datos del nuevo automovil creado
@@ -33,11 +34,25 @@ Body: Devuelve los datos del nuevo automovil creado
 ~~~
 
 **Status:** 500 Si se ingresan opcionales repetidos
+
 Body: 
 ~~~
 {
     "status": "INTERNAL_SERVER_ERROR",
     "message": "No se aceptan opcionales duplicados",
+    "errors": [
+        "Ocurrio un error"
+    ]
+}
+~~~
+
+**Status:** 500 Si se ingresa un tipo de auto que no existe
+
+Body: 
+~~~
+{
+    "status": "INTERNAL_SERVER_ERROR",
+    "message": "El tipo auto no existe.",
     "errors": [
         "Ocurrio un error"
     ]
