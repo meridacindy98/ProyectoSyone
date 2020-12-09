@@ -259,6 +259,19 @@ Body:
 }
 ~~~
 
+**Status:** 500 Si el tipo de auto ingresado no existe
+
+Body: 
+~~~
+{
+    "status": "INTERNAL_SERVER_ERROR",
+    "message": "El tipo de auto ingresado no existe.",
+    "errors": [
+        "Ocurrio un error"
+    ]
+}
+~~~
+
 
 ## Borrar opcional u opcionales de un automovil
 DELETE: http://45.33.18.43:8080/automovilOpcionalDelete
