@@ -23,7 +23,7 @@ public class AutomovilOpcionalController {
 		return new ResponseEntity<>( automovilOpcionalService.deleteAutomovilOpcionalByAutomovilId( request.getAutomovilId() , request.getOpcionalIdList() ),HttpStatus.OK);
 	}
 	
-	@PostMapping("/automovilOpcional")
+	@PostMapping("/automovilOpcionalDelete")
 	public ResponseEntity<ResponseAutomovilOpcional> addAutomovilOpcional( @RequestBody RequestAutomovilOpcional request) {		
 		return new ResponseEntity<>( automovilOpcionalService.addAutomovilOpcionalByAutomovilId( request.getAutomovilId() , request.getOpcionalIdList() ), HttpStatus.OK);
 	}		
