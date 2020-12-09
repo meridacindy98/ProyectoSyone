@@ -42,7 +42,7 @@ public class AutomovilController {
 	@GetMapping("/automovil/{automovilId}")
 	public ResponseEntity<ResponseAutomovil> getAutomovilById(@PathVariable("automovilId") int automovilId){
 		ResponseAutomovil response = new ResponseAutomovil();
-		response.setAutomovil( automovilService.getAutomovilById(automovilId) );
+		response.setAutomovil( automovilService.getAutomovilByIdAndValidate(automovilId) );
 		response.setOpcionalList( automovilOpcionalService.getOpcionalListByAutomovilId(automovilId) );
 		
 		return new ResponseEntity<>(response, HttpStatus.OK);

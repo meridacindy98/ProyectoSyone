@@ -57,7 +57,7 @@ public class ProyectoSysoneApplicationTests {
 		List<Integer> opcionalList = Arrays.asList(1, 2, 3);
 
 		assertThatThrownBy(() -> automovilService.save(-1, opcionalList)).isInstanceOf(IllegalArgumentException.class)
-				.hasMessage("El tipo auto no existe.");
+				.hasMessage("El tipo de auto ingresado no existe.");
 
 	}
 
@@ -210,8 +210,13 @@ public class ProyectoSysoneApplicationTests {
 	@Test 
 	public void updateTipoAutoIdAutomovilNoExist() {
 		assertThatThrownBy(() -> automovilService.updateTipoAuto(1, 5)).isInstanceOf(IllegalArgumentException.class)
-		.hasMessage("El tipo de auto ingresado no existe");
+		.hasMessage("El tipo de auto ingresado no existe.");
 	}
-	 	
+	
+	//agregar uno o mas opcionales a un automovil
+	@Test
+	public void addAutomovilOpcionalByAutomovilId() {
+		
+	}
 	
 }

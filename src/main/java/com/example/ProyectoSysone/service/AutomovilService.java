@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
 import com.example.ProyectoSysone.dao.AutomovilDao;
 import com.example.ProyectoSysone.entity.Automovil;
@@ -33,28 +32,14 @@ public class AutomovilService {
 	private AutomovilOpcionalService automovilOpcionalService;
 
 	public Automovil save(int tipoAutoId, List<Integer> opcionalList) {
-
-		TipoAuto tipoAuto;
-		
-		if ( tipoAutoId == 0 ) {
-			throw new IllegalArgumentException("Se debe seleccionar un tipo de auto.");
-		}
-
-		try {
-			tipoAuto = tipoAutoService.findById(tipoAutoId);
-		} catch (NoSuchElementException e) {
-			throw new IllegalArgumentException("El tipo auto no existe.", e);
-		}
+				
+		TipoAuto tipoAuto = validateTipoAuto( tipoAutoId );
 
 		if (opcionalList == null) {
 			opcionalList = new ArrayList<>();
 		}
-
-		opcionalList.stream().forEach(opcionalId -> {
-			if (!opcionalService.existById(opcionalId.intValue())) {
-				throw new IllegalArgumentException("Uno de los opcionales ingresados no existe.");
-			}
-		});
+		
+		validateOpcionales(opcionalList);
 
 		Automovil automovil = new Automovil(tipoAuto, calculateTotalPrice(tipoAutoId, opcionalList));
 		automovil = automovilDao.save(automovil);
@@ -94,13 +79,8 @@ public class AutomovilService {
 		} catch (NoSuchElementException e) {
 			throw new IllegalArgumentException("El automovil ingresado no existe", e);
 		}
-						
-		TipoAuto tipoAutoUpdate;
-		try {
-			tipoAutoUpdate = tipoAutoService.findById(tipoAutoIdUpdate); 
-		} catch (NoSuchElementException e) {
-			throw new IllegalArgumentException("El tipo de auto ingresado no existe", e);
-		}
+								
+		TipoAuto tipoAutoUpdate = validateTipoAuto( tipoAutoIdUpdate );
 		
 		automovil.setTipoAuto(tipoAutoUpdate);
 		
@@ -135,7 +115,7 @@ public class AutomovilService {
 		return automovilDao.count();
 	}
 	
-	public Automovil getAutomovilById( int automovilId ) {
+	public Automovil getAutomovilByIdAndValidate( int automovilId ) {
 		
 		try {
 			return automovilDao.findById( automovilId ).get(); 
@@ -144,7 +124,7 @@ public class AutomovilService {
 		}
 		
 	}
-
+	
 	private BigDecimal calculateTotalPrice(int tipoAutoId, List<Integer> opcionalList) {
 
 		BigDecimal priceTipoAuto = BigDecimal.ZERO;
@@ -152,17 +132,42 @@ public class AutomovilService {
 
 		priceTipoAuto = tipoAutoService.findPrecioByTipoAutoId(tipoAutoId);
 
-		opcionalList.stream().forEach(opcional -> {
-			if (Collections.frequency(opcionalList, opcional) > 1) {
-				throw new IllegalArgumentException("No se aceptan opcionales duplicados");
-			}
-		});
-
 		priceOpcional = opcionalList.stream().map(opcional -> opcionalService.findPrecioByOpcionalId(opcional))
 				.reduce(BigDecimal.ZERO, BigDecimal::add);
 
 		return priceTipoAuto.add(priceOpcional);
 
 	}
+	
+	private void validateOpcionales ( List<Integer> opcionalList ) {
+		
+		opcionalList.stream().forEach(opcional -> {
+			if (Collections.frequency(opcionalList, opcional) > 1) {
+				throw new IllegalArgumentException("No se aceptan opcionales duplicados");
+			}
+		});
+		
+		opcionalList.stream().forEach(opcionalId -> {
+			if (!opcionalService.existById(opcionalId.intValue())) {
+				throw new IllegalArgumentException("Uno de los opcionales ingresados no existe.");
+			}
+		});
+	}
+	
+	private TipoAuto validateTipoAuto( int tipoAutoId ) {
+		
+		if ( tipoAutoId == 0 ) {
+			throw new IllegalArgumentException("Se debe seleccionar un tipo de auto.");
+		}
+		
+		try {
+			return tipoAutoService.findById(tipoAutoId);
+		} catch (NoSuchElementException e) {
+			throw new IllegalArgumentException("El tipo de auto ingresado no existe.", e);
+		}
+		
+	}
+	
+	
 		
 }
