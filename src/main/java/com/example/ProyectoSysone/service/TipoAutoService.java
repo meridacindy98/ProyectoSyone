@@ -22,21 +22,7 @@ public class TipoAutoService {
 	public BigDecimal findPrecioByTipoAutoId( int tipoAutoId ) {
 		return tipoAutoDao.findPrecioByTipoAutoId(tipoAutoId);
 	}
-	
-//	public void updateLessCantidadTipoAuto( TipoAuto tipoAuto ) {
-//		tipoAuto.setCantidad( tipoAuto.getCantidad() - 1 );
-//		tipoAutoDao.save(tipoAuto);
-//	}
-//	
-//	public void updateMoreCantidadTipoAuto( TipoAuto tipoAuto ) {
-//		tipoAuto.setCantidad( tipoAuto.getCantidad() + 1 );
-//		tipoAutoDao.save(tipoAuto);
-//	}
-	
-//	public Boolean validateStockTipoAuto( int tipoAutoId ) {
-//		return tipoAutoDao.validateStockTipoAuto(tipoAutoId);
-//	}
-	
+		
 	public List<TipoAuto> findAll(){
 		return tipoAutoDao.findAll();
 	}

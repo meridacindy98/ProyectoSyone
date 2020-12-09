@@ -102,9 +102,7 @@ public class AutomovilService {
 		} catch (NoSuchElementException e) {
 			throw new IllegalArgumentException("El automovil ingresado no existe", e);
 		}
-		
-//		TipoAuto tipoAutoCurrent = automovil.getTipoAuto();
-				
+						
 		TipoAuto tipoAutoUpdate;
 		try {
 			tipoAutoUpdate = tipoAutoService.findById(tipoAutoIdUpdate); 
@@ -115,10 +113,7 @@ public class AutomovilService {
 		automovil.setTipoAuto(tipoAutoUpdate);
 		
 		automovil = updatePrecioFInal( automovil.getAutomovilId() );
-		
-//		tipoAutoService.updateMoreCantidadTipoAuto(tipoAutoCurrent);		 
-//		tipoAutoService.updateLessCantidadTipoAuto(tipoAutoUpdate);
-		
+				
 		return automovil;
 	}
 	

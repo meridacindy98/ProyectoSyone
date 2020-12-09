@@ -26,15 +26,11 @@ public class Opcional {
 	
     @Column(nullable = false )
 	private BigDecimal precio;
-    
-    @Column(nullable = false )
-    private int cantidad;
-
-	public Opcional(String codigo, String nombre, BigDecimal precio, int cantidad) {
+     
+	public Opcional(String codigo, String nombre, BigDecimal precio) {
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.precio = precio;
-		this.cantidad = cantidad;
 	}
 	
 	public Opcional() {}
@@ -70,15 +66,5 @@ public class Opcional {
 	public void setPrecio(BigDecimal precio) {
 		this.precio = precio;
 	}
-
-	public int getCantidad() {
-		return cantidad;
-	}
-
-	public void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
-	} 
-	
-	
     
 }

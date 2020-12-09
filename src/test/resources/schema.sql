@@ -8,7 +8,6 @@ DROP TABLE IF EXISTS Opcional;
 create table TIPOAUTO(
 	tipo_Auto_Id int IDENTITY(1,1) primary key not null,
 	nombre varchar(50),
-	cantidad int(11),
 	precio decimal
 );
 
@@ -19,7 +18,6 @@ create table Opcional(
 	opcional_Id int IDENTITY(1,1) primary key not null,
 	codigo varchar(5),
 	nombre varchar(50),
-	cantidad decimal,
 	precio int
 );
 
@@ -43,16 +41,16 @@ create table AUTOMOVILOPCIONAL(
 
 
 --Insert TipoAuto
-insert into TipoAuto (cantidad, nombre, precio) values (30, 'sedan', 230000.00);
-insert into TipoAuto (cantidad, nombre, precio) values (60, 'familiar', 245000.00);
-insert into TipoAuto (cantidad, nombre, precio) values (1,'coupe', 270000.00);
+insert into TipoAuto ( nombre, precio) values ( 'sedan', 230000.00);
+insert into TipoAuto ( nombre, precio) values ( 'familiar', 245000.00);
+insert into TipoAuto ( nombre, precio) values ('coupe', 270000.00);
 
 --Insert Opcional
-insert into Opcional ( nombre, codigo, precio, cantidad ) values ('Techo corredizo', 'TC',12000.00, 12);
-insert into Opcional ( nombre, codigo, precio, cantidad ) values ('Aire acondicionado', 'AA',20000.00, 20);
-insert into Opcional ( nombre, codigo, precio, cantidad ) values ('Sistemas de frenos', 'ABS',14000.00, 35);
-insert into Opcional ( nombre, codigo, precio, cantidad ) values ('Airbag', 'AB',7000.00, 14);
-insert into Opcional ( nombre, codigo, precio, cantidad ) values ('Llantas de aleación', 'LL',12000.00, 0);
+insert into Opcional ( nombre, codigo, precio ) values ('Techo corredizo', 'TC',12000.00);
+insert into Opcional ( nombre, codigo, precio ) values ('Aire acondicionado', 'AA',20000.00);
+insert into Opcional ( nombre, codigo, precio ) values ('Sistemas de frenos', 'ABS',14000.00);
+insert into Opcional ( nombre, codigo, precio ) values ('Airbag', 'AB',7000.00, 14);
+insert into Opcional ( nombre, codigo, precio ) values ('Llantas de aleación', 'LL',12000.00);
 
 --Insert a Automoviles
 insert into Automovil ( tipo_Auto_Id, precio_Final ) values ( 1, 262000.00); --1 automovilId

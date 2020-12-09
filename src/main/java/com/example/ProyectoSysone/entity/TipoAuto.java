@@ -24,13 +24,10 @@ public class TipoAuto {
 	@Column(nullable = false )
 	private BigDecimal precio;
 	
-	@Column(nullable = false )
-	private int cantidad;
 
-	public TipoAuto(String nombre, BigDecimal precio, int cantidad) {
+	public TipoAuto(String nombre, BigDecimal precio) {
 		this.nombre = nombre;
 		this.precio = precio;
-		this.cantidad = cantidad;
 	}
 	
 	public TipoAuto() {	}
@@ -57,14 +54,6 @@ public class TipoAuto {
 
 	public void setPrecio(BigDecimal precio) {
 		this.precio = precio;
-	}
-
-	public int getCantidad() {
-		return cantidad;
-	}
-
-	public void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
 	}
 
 }
