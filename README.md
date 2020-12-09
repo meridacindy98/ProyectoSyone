@@ -233,11 +233,78 @@ Ejemplo RequestBody:
 }
 ~~~
 
+**RESPONSE:** 
+
+**Status:** 200 Si se borro el opcional con exito
+
+**Status:** 500 Si uno de los opcionales ingresados no existe para ese automovil.
+Body: El automovil actualizado
+~~~
+{
+    "status": "INTERNAL_SERVER_ERROR",
+    "message": "Uno de los opcionales ingresados no existe para este automovil",
+    "errors": [
+        "Ocurrio un error"
+    ]
+}
+~~~
+
 
 ## Obtener las estadisticas
 GET: http://45.33.18.43:8080/stats
+
 ##### RESPONSE: 
-Status: 500
+
+Status: 200
+~~~
+{
+    "count_car": 4,
+    "cars": [
+        {
+            "model": "sedan",
+            "count": 1,
+            "percent": 25.0
+        },
+        {
+            "model": "familiar",
+            "count": 2,
+            "percent": 50.0
+        },
+        {
+            "model": "coupe",
+            "count": 1,
+            "percent": 25.0
+        }
+    ],
+    "optionals": [
+        {
+            "optional": "Techo corredizo",
+            "count": 1,
+            "percent": 25.0
+        },
+        {
+            "optional": "Aire acondicionado",
+            "count": 3,
+            "percent": 75.0
+        },
+        {
+            "optional": "Sistemas de frenos",
+            "count": 0,
+            "percent": 0.0
+        },
+        {
+            "optional": "Airbag",
+            "count": 0,
+            "percent": 0.0
+        },
+        {
+            "optional": "Llantas de aleación",
+            "count": 0,
+            "percent": 0.0
+        }
+    ]
+}
+~~~
 
 
 
