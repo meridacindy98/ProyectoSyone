@@ -2,11 +2,13 @@ package com.example.ProyectoSysone.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.ProyectoSysone.dao.AutomovilOpcionalDao;
+import com.example.ProyectoSysone.entity.Automovil;
 import com.example.ProyectoSysone.entity.AutomovilOpcional;
 import com.example.ProyectoSysone.entity.Opcional;
 
@@ -22,6 +24,7 @@ public class AutomovilOpcionalService {
 	@Autowired
 	private OpcionalService opcionalService;
 	
+	
 	public AutomovilOpcional save( AutomovilOpcional automovilOpcional ) {
 		return automovilOpcionalDao.save(automovilOpcional);
 	}
@@ -32,6 +35,9 @@ public class AutomovilOpcionalService {
 		
 	public void deleteAutomovilOpcionalByAutomovilIdAndOpcinalList( int automovilId, List<Integer> opcionalIdList ) {			
 		
+		
+		automovilService.getAutomovilById( automovilId );
+				
 		opcionalIdList.stream().forEach( opcionalId -> {
 			if ( !automovilOpcionalDao.validateAutomovilAutomovilId(automovilId, opcionalId) ) {
 				throw new IllegalArgumentException("Uno de los opcionales ingresados no existe para este automovil");
