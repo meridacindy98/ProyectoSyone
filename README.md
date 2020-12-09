@@ -13,11 +13,17 @@ Obtener todos los automoviles.
 
 ### Borrar un automovil
 DELETE: http://45.33.18.43:8080/automovil/{automovilId}
-~~~
+
+
 Parametro: automovilId
 
+
 RESPONSE: 
+
+
 Status: 200
+
+
 Si se borro con exito.
 
 RESPONSE: 
@@ -31,7 +37,7 @@ Body:
     ]
 }
 Si se ingreso un automovil que no existe.
-~~~
+
 
 ### Modificar un automovil
 PUT: http://45.33.18.43:8080/automovil/{automovilId}/{tipoAutoId}
