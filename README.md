@@ -63,25 +63,37 @@ Body:
 ## Obtener un automovil
 GET: http://45.33.18.43:8080/automovil/{automovilId}
 
-Ingresar el Id de automovil que se desea eleminar.
+**PARAMETRO:** 
+- **automovilId:** Id del automovil que deseo obtener.
 
-## Obtener todos los automoviles
-GET: http://45.33.18.43:8080/automoviles
+**Status:** 200 Si se obtuvo el automovil conexito.
 
-Obtener todos los automoviles.
+Body: Devuelve los datos del automovil.
+~~~
+{
+    "automovil": {
+        "automovilId": 2,
+        "tipoAuto": {
+            "tipoAutoId": 1,
+            "nombre": "sedan",
+            "precio": 230000
+        },
+        "precioFinal": 242000
+    },
+    "opcionalList": [
+        {
+            "opcionalId": 1,
+            "codigo": "TC",
+            "nombre": "Techo corredizo",
+            "precio": 12000
+        }
+    ]
+}
+~~~
 
-## Borrar un automovil
-DELETE: http://45.33.18.43:8080/automovil/{automovilId}
+**Status:** 500 Si el automovil no existe.
 
-**PARAMETRO:** automovilId
-
-**RESPONSE**
-
-Status: 200 Si se borro con exito.
-
-Status: 500 Si se ingreso un automovil que no existe.
-
-Body
+Body: 
 ~~~
 {
     "status": "INTERNAL_SERVER_ERROR",
@@ -93,8 +105,35 @@ Body
 ~~~
 
 
+## Obtener todos los automoviles
+GET: http://45.33.18.43:8080/automoviles
 
-## Modificar un automovil
+Obtiene todos los automoviles.
+
+## Borrar un automovil
+DELETE: http://45.33.18.43:8080/automovil/{automovilId}
+
+**PARAMETRO:** 
+- **automovilId:** Id del automovil
+
+**RESPONSE:** 
+
+**Status:** 200 Si se borro el automovil con exito.
+
+**Status:** 500 Si el automovil ingresado no existe
+
+Body: 
+~~~
+{
+    "status": "INTERNAL_SERVER_ERROR",
+    "message": "El automovil ingresado no existe",
+    "errors": [
+        "Ocurrio un error"
+    ]
+}
+~~~
+
+## Modificar tipo auto de un automovil
 PUT: http://45.33.18.43:8080/automovil/{automovilId}/{tipoAutoId}
 
 
