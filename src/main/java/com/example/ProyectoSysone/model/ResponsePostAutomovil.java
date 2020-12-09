@@ -21,10 +21,6 @@ public class ResponsePostAutomovil {
 	}
 	public void setOpcionalList(List<Opcional> opcionalList) {
 		this.opcionalList = opcionalList;
-	}
-
+	}	
 	
-	
-	
-
 }

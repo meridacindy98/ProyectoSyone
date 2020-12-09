@@ -15,7 +15,7 @@ public class TipoAuto {
 	
 	@Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
-	@Column( name="tipoAutoId" )
+	@Column( name = "tipo_Auto_Id" )
 	private int tipoAutoId;
 	
 	@Column(length = 50)

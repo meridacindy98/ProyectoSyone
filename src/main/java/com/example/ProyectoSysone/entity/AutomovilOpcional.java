@@ -9,23 +9,21 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.Data;
-
 @Entity
 @Table(name = "AUTOMOVILOPCIONAL")
 public class AutomovilOpcional {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="automovilOpcionalId")
+	@Column(name="automovil_Opcional_Id")
 	private int automovilOpcionalId;	
 	
 	@ManyToOne( optional = false )
-	@JoinColumn(name="automovilId")
+	@JoinColumn(name="automovil_Id")
 	private Automovil automovil;
 		
 	@ManyToOne( optional = true )
-	@JoinColumn(name="opcionalId")
+	@JoinColumn(name="opcional_Id")
 	private Opcional opcional;
 
 	public AutomovilOpcional(Automovil automovil, Opcional opcional) {

@@ -15,11 +15,11 @@ public class Automovil {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "automovilId")
+    @Column(name = "automovil_Id")
     private int automovilId;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "tipoAutoId")
+    @JoinColumn(name = "tipo_Auto_Id")
     private TipoAuto tipoAuto;
 
     @Column(name = "precioFinal")

@@ -28,7 +28,7 @@ create table Opcional(
 --Automovil
 create table Automovil(
 	automovil_Id int IDENTITY(1,1) primary key not null,
-	tipoAuto_Id int not null,
+	tipo_Auto_Id int not null,
 	precio_Final int
 );
 

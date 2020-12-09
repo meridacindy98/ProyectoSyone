@@ -1,8 +1,10 @@
 package com.example.ProyectoSysone.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -53,10 +55,13 @@ public class AutomovilController {
 			return new ResponseEntity<>(response, HttpStatus.CREATED);		
 	}
 
-	@DeleteMapping("/automovil/{id}")
-	public ResponseEntity<HttpStatus> deleteAutomovilById(@PathVariable("id") int id) {
-		automovilService.deleteAutomovil(id);
-		return new ResponseEntity<>(HttpStatus.OK);
+	@DeleteMapping("/automovil/{automovilId}")
+	public ResponseEntity<HttpStatus> deleteAutomovilById(@PathVariable("automovilId") int automovilId) {
+
+			automovilService.deleteAutomovil(automovilId);
+			return new ResponseEntity<>(HttpStatus.OK);
+				
+		
 	}		
 	
 	@PutMapping(value="/automovil/{automovilId}/{tipoAutoId}")
@@ -64,12 +69,15 @@ public class AutomovilController {
 		return new ResponseEntity<>( automovilService.updateTipoAuto(automovilId, tipoAutoId),HttpStatus.OK);
 	}	 
 
-	@ExceptionHandler(IllegalArgumentException.class)
-	public String handleException(IllegalArgumentException ex) {
-//	    ModelAndView modelAndView = new ModelAndView();
-//	    modelAndView.setViewName("error");
-//	    modelAndView.addObject("message", ex.getMessage());
-		return ex.getMessage();
-	}
+//	@ExceptionHandler(IllegalArgumentException.class)
+//	public ResponseEntity<Object> handleException(IllegalArgumentException ex) {
+//		String errorMessageDescription = ex.getLocalizedMessage();
+//		
+//		if ( errorMessageDescription == null ) errorMessageDescription = ex.toString();
+//		
+//		ErrorMessage errorMessage = new ErrorMessage( new Date(), errorMessageDescription );
+//		
+//		return new ResponseEntity<>( errorMessage, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR );
+//	}
 
 }
