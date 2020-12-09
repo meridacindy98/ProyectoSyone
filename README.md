@@ -162,9 +162,9 @@ Body:
 GET: http://45.33.18.43:8080/automoviles
 
 
-**Status:** 200
+**Status:** 200 OK
 
-Body: Devuelve los datos del automovil.
+Body: Devuelve los datos de los Automoviles
 ~~~
 [
     {
