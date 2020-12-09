@@ -11,7 +11,7 @@ import com.example.ProyectoSysone.entity.Opcional;
 @Repository
 public interface OpcionalDao extends JpaRepository<Opcional, Integer>{
 	
-	@Query("SELECT precio FROM opcional WHERE opcional_Id = :opcionalId")
+	@Query(value = "SELECT precio FROM opcional WHERE opcional_Id = :opcionalId", nativeQuery = true)
 	BigDecimal findPrecioByOpcionalId(int opcionalId);
 		
 }
