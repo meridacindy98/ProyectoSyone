@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS TIPOAUTO;
 DROP TABLE IF EXISTS Opcional;
 
 --TipoAuto
-create table TIPOAUTO(
+create table TipoAuto(
 	tipo_Auto_Id int IDENTITY(1,1) primary key not null,
 	nombre varchar(50),
 	precio decimal
@@ -31,7 +31,7 @@ create table Automovil(
 );
 
 --AutomovilOpcional
-create table AUTOMOVILOPCIONAL(
+create table AutomovilOpcional(
     automovil_Opcional_Id int IDENTITY(1,1) primary key not null,
     automovil_Id int not null,    
     opcional_Id int not null,
