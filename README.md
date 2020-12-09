@@ -218,7 +218,7 @@ Body:
 
 
 ## Borrar opcional u opcionales de un automovil
-DELETE: http://45.33.18.43:8080/automovilOpcional
+DELETE: http://45.33.18.43:8080/automovilOpcionalDelete
 
 **PARAMETROS:** 
 - **automovilId:** Id del automovil
@@ -236,7 +236,7 @@ Ejemplo RequestBody:
 
 **RESPONSE:** 
 
-**Status:** 200 Si se borro el opcional con exito
+**Status:** 200 Si se borro el opcional u opcionales con exito
 
 **Status:** 500 Si el automovil ingresado no existe
 ~~~
@@ -254,6 +254,49 @@ Ejemplo RequestBody:
 {
     "status": "INTERNAL_SERVER_ERROR",
     "message": "Uno de los opcionales ingresados no existe para este automovil",
+    "errors": [
+        "Ocurrio un error"
+    ]
+}
+~~~
+
+## Agregar opcional u opcionales de un automovil
+POST: http://45.33.18.43:8080/automovilOpcional
+
+**PARAMETROS:** 
+- **automovilId:** Id del automovil
+- **opcionalIdList:** Opcional u opcionales que se desean agregar del automovil
+
+Ejemplo RequestBody:
+~~~
+{
+    "automovilId":"1",
+    "opcionalIdList":[
+        1
+    ]
+}
+~~~
+
+**RESPONSE:** 
+
+**Status:** 200 Si se agrego el opcional u opcionales con exito
+
+**Status:** 500 Si el automovil ingresado no existe
+~~~
+{
+    "status": "INTERNAL_SERVER_ERROR",
+    "message": "El automovil ingresado no existe",
+    "errors": [
+        "Ocurrio un error"
+    ]
+}
+~~~
+
+**Status:** 500 Si uno de los opcionales ingresados ya existe para ese automovil.
+~~~
+{
+    "status": "INTERNAL_SERVER_ERROR",
+    "message": "Uno de los opcionales ingresados ya existe para este automovil",
     "errors": [
         "Ocurrio un error"
     ]
